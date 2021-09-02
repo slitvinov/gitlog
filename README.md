@@ -1,7 +1,7 @@
 A simple illustration why Baysian model selection is hard. Lets select
 a model for a coin. Toss it three times:
 
-Head, Tail, Tail
+   Head, Tail, Tail
 
 Model one is an unbiased coin (M1), model two (M2) is a coin with a
 parameter (bias) which can be 1/2 (a), 1/3 (b), and 2/3 (c).
