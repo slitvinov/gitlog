@@ -1,4 +1,4 @@
-A simple illustration why Baysian model selection is hard. Lets select
+A simple illustration why Bayesian model selection is hard. Let's select
 a model for a coin. Toss it three times:
 
     Head, Tail, Tail
@@ -30,7 +30,7 @@ The posterior of M1 is
 
 Note that M1 is "nested" in M2 (for bias = 1/2), M2 with bias = 1/3
 fits better, but the data tells me to believe in M1 a bit more than
-before. Here are all posteriors to stair at
+before. All posteriors to stare at
 
     0.52 0.17 0.21 0.10
 
