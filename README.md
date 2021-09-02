@@ -38,6 +38,6 @@ priors were
 
     0.50 0.17 0.17 0.17
 
-"Unfreezing" priors and looking at how O1 changes is also
+"Unfixing" priors and looking at how O1 changes is also
 interesting. All priors (not only for best-fitting parameters)
 "inside" a model influence the posterior of the model index.
