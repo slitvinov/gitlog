@@ -41,4 +41,4 @@ priors were
 "Unfixing" priors and looking at how O1 changes is also
 interesting. The key idea of model select is that the model index is
 itself a parameter, but all priors (not only for best-fitting
-parameters) "inside" a model influence the posterior of the index.
+parameters) "inside" all models influence the posterior of the index.
