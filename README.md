@@ -1,5 +1,5 @@
-A simple illustration why Bayesian model selection is hard. Let's select
-a model for a coin. Toss it three times:
+A simple illustration why Bayesian model selection is hard. Let's
+select a model for a coin. Toss it three times:
 
     Head, Tail, Tail
 
@@ -39,5 +39,6 @@ priors were
     0.50 0.17 0.17 0.17
 
 "Unfixing" priors and looking at how O1 changes is also
-interesting. All priors (not only for best-fitting parameters)
-"inside" a model influence the posterior of the model index.
+interesting. The key idea of model select is that the model index is
+itself a parameter, but all priors (not only for best-fitting
+parameters) "inside" a model influence the posterior of the index.
