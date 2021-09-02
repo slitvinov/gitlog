@@ -6,7 +6,7 @@ a model for a coin. Toss it three times:
 Model one (M1) is a fair coin, model two (M2) is a coin with a
 parameter (bias) which can be 1/2 (a), 1/3 (b), and 2/3 (c).
 
-Pick priors:
+Pick priors
 
     P1 = 1/2
     P2a = 1/6
