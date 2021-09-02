@@ -22,7 +22,7 @@ Compute likelihoods
 
 and the evidence
 
-    E = P1*L1 + P2a*L2a + P2b*L2b + P2c*L2c
+    E = P1*L1 + P2a*L2a + P2b*L2b + P2c*L2c = 13/108
 
 The posterior of M1 is
 
