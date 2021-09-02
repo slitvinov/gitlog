@@ -3,7 +3,7 @@ a model for a coin. Toss it three times:
 
     Head, Tail, Tail
 
-Model one (M1) is an unbiased coin, model two (M2) is a coin with a
+Model one (M1) is a fair coin, model two (M2) is a coin with a
 parameter (bias) which can be 1/2 (a), 1/3 (b), and 2/3 (c).
 
 Pick priors (`P1 + P2a + P2b + P2c = 1`):
