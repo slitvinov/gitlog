@@ -1,10 +1,7 @@
 A simple illustration why Bayesian model selection is hard. Let's
-select a model for a coin. Toss it three times:
-
-    Head, Tail, Tail
-
-Model one (M1) is a fair coin, model two (M2) is a coin with a
-parameter (bias) which can be 1/2 (a), 1/3 (b), and 2/3 (c).
+select a model for a coin. Model one (M1) is a fair coin, model two
+(M2) is a coin with a parameter (bias) which can be 1/2 (a), 1/3 (b),
+and 2/3 (c).
 
 Pick priors
 
@@ -12,6 +9,10 @@ Pick priors
     P2a = 1/6
     P2b = 1/6
     P2c = 1/6
+
+Toss the coin three times:
+
+    Head, Tail, Tail
 
 Compute likelihoods
 
@@ -26,7 +27,7 @@ and the evidence
 
 The posterior of M1 is
 
-    O1 = L1*P1/E = 27/52 ~ 0.52
+    R1 = L1*P1/E = 27/52 ~ 0.52
 
 Note that M1 is "nested" in M2 (for bias = 1/2), M2 with bias = 1/3
 fits better, but the data tells me to believe in M1 a bit more than
@@ -38,7 +39,7 @@ priors were
 
     0.50 0.17 0.17 0.17
 
-"Unfixing" priors and looking at how O1 changes is also
+"Unfixing" priors and looking at how R1 changes is also
 interesting. It is essential for model selection that the model index
 is itself a parameter, but all priors (not only for best-fitting
 parameters) "inside" all models influence the posterior of the index.
