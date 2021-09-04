@@ -25,15 +25,15 @@ which are used as weights to build a sum of log-likelihoods
     Q(t) = C1 * log(t * (1 - t)) + (1 - C1) * log(t/2 * (1 - t/2))
 
 Note that `t` is an argument and `t0` is absorbed into weights. `t`
-which maximizes `Q(t)` is used as `t0` and a new interaction starts. I
-got this sequence for `t0`:
+which maximizes `Q(t)` is a new `t0` and a next interaction starts. I
+have this sequence of `t0`:
 
     0.40 0.58 0.60 0.60 0.60
 
-The form of `Q(t)` is postulated by the algorithm, and
+The algorithm postulated the form of `Q(t)` and
 [wikipedia](https://en.wikipedia.org/wiki/Expectation–maximization_algorithm)
 gives the intuition and explains the benefits. An index of a coin is Z
-in wikipedia, and the weighted sum in Q(t) is the way to compute an
+in wikipedia, and the weighted sum in Q(t) is the way to compute the
 expectation `E_{Z|X,t0}`
 
 P.S. [em.py](em.py)
