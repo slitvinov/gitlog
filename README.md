@@ -24,14 +24,14 @@ which are used as weights to build a sum of log-likelihoods
 
     Q(t) = C1 * log(t * (1 - t)) + (1 - C1) * log(t/2 * (1 - t/2))
 
-Note that `t` is an argument and `t0` is absorbed into weights. `t`
-which maximizes `Q(t)` is a new `t0` and a next interaction
-starts. Fortunately, the maximization can be done analytically. I have
-this sequence for `t0`:
+Note that `t` is an argument and `t0` is absorbed into weights. Set
+`t0` to a value which maximizes `Q(t)` and start a new
+interaction. Fortunately, the maximization can be done analytically. I
+have this sequence for `t0`:
 
     0.40 0.58 0.60 0.60 0.60
 
-The algorithm postulated the form of `Q(t)` and
+The algorithm postulates the form of `Q(t)` and
 [wikipedia](https://en.wikipedia.org/wiki/Expectation–maximization_algorithm)
 gives the intuition and explains the benefits. An index of a coin is Z
 in wikipedia, and the weighted sum in Q(t) is the way to compute the
