@@ -45,7 +45,7 @@ t = - -----------------------------
                     4
 ```
 
-P.S.S.S. Failed attempts to give an example
+P.S.S.S. Failed attempts to construct an example
 
 - https://stackoverflow.com/questions/11808074/what-is-an-intuitive-explanation-of-the-expectation-maximization-technique
 - https://scholar.google.com/scholar?cluster=8576697373613937077&hl=de&as_sdt=2005&sciodt=0,5
