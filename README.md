@@ -36,16 +36,16 @@ gives the intuition and explains the benefits. An index of a coin is Z
 in wikipedia, and the weighted sum in Q(t) is the way to compute an
 expectation `E_{Z|X,t}`
 
-P.S.S [em.py](em.py)
+P.S. [em.py](em.py)
 
-P.S.S.S A maximimum of Q(t) is at
+P.S.S. A maximimum of Q(t) is at
 ```
        sqrt(C1 C1  + 8 C1) - C1 - 4
 t = - -----------------------------
                     4
 ```
 
-P.S.S.S.S Failed attempts to give an example
+P.S.S.S. Failed attempts to give an example
 
 - https://stackoverflow.com/questions/11808074/what-is-an-intuitive-explanation-of-the-expectation-maximization-technique
 - https://scholar.google.com/scholar?cluster=8576697373613937077&hl=de&as_sdt=2005&sciodt=0,5
