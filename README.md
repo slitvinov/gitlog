@@ -20,7 +20,7 @@ normalizing them gives conditional probabilities
     C1 = L1/(L1 + L2) = 0.6
     C2 = L2/(L1 + L2) = 0.4 = 1 - C1
 
-which are used as weights to build an sum of log-likelihoods
+which are used as weights to build a sum of log-likelihoods
 
     Q(t) = C1 * log(t * (1 - t)) + (1 - C1) * log(t/2 * (1 - t/2))
 
