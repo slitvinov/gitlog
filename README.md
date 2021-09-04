@@ -31,7 +31,7 @@ got this sequence for `t0`:
 
 P.S. Hints to related this illustration to a [description in
 wikipedia](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm#Description):
-an index of a coin is Z, and weighted sum is used to compute an expectation `E_{Z|X,t}`
+an index of a coin is Z, and weighted sum in Q(t) is a way to compute an expectation `E_{Z|X,t}`
 
 P.S.S. A maximimum of Q(t) is at
 ```
