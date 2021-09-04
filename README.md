@@ -24,7 +24,7 @@ which are used as weights to build an approximation of `log(L(t))`
     Q(t) = C1 * log(t * (1 - t)) + (1 - C1) * log(t/2 * (1 - t/2))
 
 Note that `t` is an argument and `t0` is absorbed into weights. `t`
-which maximizes Q(t) is used as `t0` and a new interaction starts. I
+which maximizes `Q(t)` is used as `t0` and a new interaction starts. I
 got this sequence for `t0`:
 
     0.40 0.58 0.60 0.60 0.60
