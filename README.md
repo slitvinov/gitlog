@@ -25,8 +25,9 @@ which are used as weights to build a sum of log-likelihoods
     Q(t) = C1 * log(t * (1 - t)) + (1 - C1) * log(t/2 * (1 - t/2))
 
 Note that `t` is an argument and `t0` is absorbed into weights. `t`
-which maximizes `Q(t)` is a new `t0` and a next interaction starts. I
-have this sequence of `t0`:
+which maximizes `Q(t)` is a new `t0` and a next interaction
+starts. Fortunately, the maximization can be done analytically. I have
+this sequence for `t0`:
 
     0.40 0.58 0.60 0.60 0.60
 
