@@ -40,3 +40,10 @@ P.S.S. A maximimum of Q(t) is at
                  t = - -------------------------
                                    4
 ```
+
+P.S.S.S. Failed attempts to give an example
+
+- https://stackoverflow.com/questions/11808074/what-is-an-intuitive-explanation-of-the-expectation-maximization-technique
+- https://scholar.google.com/scholar?cluster=8576697373613937077&hl=de&as_sdt=2005&sciodt=0,5
+- https://math.stackexchange.com/questions/25111/how-does-expectation-maximization-work
+- https://math.stackexchange.com/questions/81004/how-does-expectation-maximization-work-in-coin-flipping-problem
