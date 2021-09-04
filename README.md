@@ -26,7 +26,7 @@ which are used as weights to build a sum of log-likelihoods
 
 Note that `t` is an argument and `t0` is absorbed into weights. Set
 `t0` to a value which maximizes `Q(t)` and start a new
-interaction. Fortunately, the maximization can be done analytically. I
+iteration. Fortunately, the maximization can be done analytically. I
 have this sequence for `t0`:
 
     0.40 0.58 0.60 0.60 0.60
