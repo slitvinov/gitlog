@@ -29,6 +29,6 @@ got this sequence for `t0`:
 
     0.40 0.58 0.60 0.60 0.60
 
-P.S. Hints to related this illustration to a [discription in
+P.S. Hints to related this illustration to a [description in
 wikipedia](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm#Description):
 an index of a coin is Z, and weighted sum is used to compute an expectation `E_{Z|X,t}`
