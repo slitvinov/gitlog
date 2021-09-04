@@ -1,23 +1,13 @@
 import math
 
-def sol_min(al):
-    return -(math.sqrt(al*al+8*al)-al-4)/4
-
-def L1(t):
-    return t * (1 - t)
-
-def L2(t):
-    return t/2 * (1 - t/2)
-
-t0 = 0.4
+t = 0.4
 i = 0
 while True:
-    print("%.2f" % t0)
+    print("%.2f" % t)
     if i == 4:
         break
     i += 1
-    C1 = L1(t0)/(L1(t0) + L2(t0))
-    C2 = L2(t0)/(L1(t0) + L2(t0))
-    C1 = C1/(C1 + C2)
-    t0 = sol_min(C1)
-    
+    L1 = t * (1 - t)
+    L2 = t/2 * (1 - t/2)
+    C = L1/(L1 + L2)
+    t = -(math.sqrt(C*C+8*C)-C-4)/4
