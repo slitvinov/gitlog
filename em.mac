@@ -4,19 +4,20 @@ L2(t):= t/2 * (1 - t/2);
 L: L1(t)/2 + L2(t)/2;
 L: factor(L);
 
-t0: 1/2;
-thru 4 do (
+r(x):= round(x * 100)/100;
+
+t0: 0.4;
+thru 5 do (
+printf(true, "~,2f~%", r(t0)),
 w1: L1(t0)/(L1(t0) + L2(t0)),
-w2: L2(t0)/(L1(t0) + L2(t0)),
-Q: w1 * log(L1(t)) + w2 * log(L2(t)),
+Q: w1 * log(L1(t)) + (1 - w1) * log(L2(t)),
 dQ: diff(Q, t),
 sol: solve(dQ),
-t0 : rhs(sol[1]),
-t0: float(t0),
-disp(t0));
+t0: float(rhs(sol[1])));
 
-Q: al * log(L1(t)) + (1 - al) * log(L2(t));
-dQ: factor(diff(Q, t));
-sol: solve(dQ, t);
+/* draw2d(explicit(L, t, 0, 1)); */
 
-draw2d(explicit(L, t, 0, 1));
+Q: 'al * log(L1('t)) + (1 - 'al) * log(L2('t));
+dQ: fullratsimp(diff(Q, 't));
+
+sol: solve(dQ, 't);

@@ -1,37 +1,31 @@
-A simple illustration why Bayesian model selection is hard. Let's select a model for a coin. Model one (M1) is a fair coin, model two (M2) is a coin with a parameter (bias) which can be 1/2 (a), 1/3 (b), and 2/3 (c).
+An illustration of expectation–maximization (EM) algorithm. I have two
+coins with biases `t` and `t/2`. I pick one coin and toss it two
+times:
 
-Pick priors
+    Head, Tail
 
-    P1 = 1/2
-    P2a = 1/6
-    P2b = 1/6
-    P2c = 1/6
+I want to guess `t`. Likelihood
 
-Toss the coin three times:
+    L(t) = t * (1 - t) / 2 + t/2 * (1 - t/2) / 2
 
-    Head, Tail, Tail
+has a maximum at t = 0.6 and this is a good guess. EM gets this number
+by iterations. Use an initial guess t0 = 0.4 to compute likelihoods:
 
-Compute likelihoods
+    L1 = t0 * (1 - t0) = 0.24
+    L2 = t0/2 * (1 - t0/2) = 0.16
 
-    L1 = 1/2 * 1/2 * 1/2
-    L2a = 1/2 * 1/2 * 1/2
-    L2b = 1/3 * 2/3 * 2/3
-    L2c = 2/3 * 1/3 * 1/3
+normalizing them gives conditional probabilities
 
-and the evidence
+    C1 = L1/(L1 + L2) = 0.6
+    C2 = L2/(L1 + L2) = 0.4 = 1 - C1
 
-    E = P1*L1 + P2a*L2a + P2b*L2b + P2c*L2c
+which are used as weights to build an approximation of log(L(t))
 
-The posterior of M1 is
+    Q(t) = C1 * log(t * (1 - t)) + (1 - C1) * log(t/2 * (1 - t/2))
 
-    R1 = L1*P1/E = 27/52 ~ 0.52
+Note that `t` is an argument and `t0` is absorbed into weights. `t`
+which maximizes Q(t) is used as `t0` and a new interaction starts. I
+got this sequence for `t0`:
 
-Note that M1 is "nested" in M2 (for bias = 1/2), M2 with bias = 1/3 fits better, but the data tells me to believe in M1 a bit more than before. All posteriors to stare at
+    0.40 0.58 0.60 0.60 0.60
 
-    0.52 0.17 0.21 0.10
-
-priors were
-
-    0.50 0.17 0.17 0.17
-
-"Unfixing" priors and looking at how R1 changes is also interesting. It is essential for model selection that the model index is itself a parameter, but all priors (not only for best-fitting parameters) "inside" all models influence the posterior of the index.
