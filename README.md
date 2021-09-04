@@ -8,8 +8,8 @@ I want to guess `t`. Likelihood
 
     L(t) = t * (1 - t) / 2 + t/2 * (1 - t/2) / 2
 
-has a maximum at `t = 0.6` and this is a good guess. EM gets this
-answer by iterations. Use any value for `t0` (let's say 0.4) to
+has a maximum at `t = 0.6` and this is a good guess. EM arrives to
+this answer by iterations. Use any value for `t0` (let's say 0.4) to
 compute likelihoods:
 
     L1 = t0 * (1 - t0) = 0.24
