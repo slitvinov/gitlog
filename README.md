@@ -19,7 +19,7 @@ normalizing them gives conditional probabilities
     C1 = L1/(L1 + L2) = 0.6
     C2 = L2/(L1 + L2) = 0.4 = 1 - C1
 
-which are used as weights to build an approximation of log(L(t))
+which are used as weights to build an approximation of `log(L(t))`
 
     Q(t) = C1 * log(t * (1 - t)) + (1 - C1) * log(t/2 * (1 - t/2))
 
