@@ -30,7 +30,7 @@ got this sequence for `t0`:
 
     0.40 0.58 0.60 0.60 0.60
 
-The form of Q(t) is postulated by the algorithm, and
+The form of `Q(t)` is postulated by the algorithm, and
 [wikipedia](https://en.wikipedia.org/wiki/Expectation–maximization_algorithm)
 gives the intuition and explains the benefits. An index of a coin is Z
 in wikipedia, and the weighted sum in Q(t) is the way to compute an
@@ -40,10 +40,9 @@ P.S.S [em.py](em.py)
 
 P.S.S.S A maximimum of Q(t) is at
 ```
-                                     2
-                       sqrt(C1  + 8 C1) - C1 - 4
-                 t = - -------------------------
-                                   4
+       sqrt(C1 C1  + 8 C1) - C1 - 4
+t = - -----------------------------
+                    4
 ```
 
 P.S.S.S.S Failed attempts to give an example
