@@ -40,7 +40,7 @@ expectation `E_{Z|X,t0}`
 
 P.S. [em.py](em.py)
 
-P.S.S. A maximimum of Q(t) is at
+P.S.S. The maximimum of Q(t) is at
 ```
        sqrt(C1 C1  + 8 C1) - C1 - 4
 t = - -----------------------------
