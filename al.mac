@@ -1,0 +1,3 @@
+Q: 'C * log(t * (1 - t)) + (1 - 'C) * log(t/2 * (1 - t/2)) $
+dQ: fullratsimp(diff(Q, 't)) $
+sol: solve(dQ, 't)[1];
