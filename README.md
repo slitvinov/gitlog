@@ -34,7 +34,7 @@ The form of `Q(t)` is postulated by the algorithm, and
 [wikipedia](https://en.wikipedia.org/wiki/Expectation–maximization_algorithm)
 gives the intuition and explains the benefits. An index of a coin is Z
 in wikipedia, and the weighted sum in Q(t) is the way to compute an
-expectation `E_{Z|X,t}`
+expectation `E_{Z|X,t0}`
 
 P.S. [em.py](em.py)
 
