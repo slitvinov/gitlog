@@ -37,7 +37,7 @@ gives the intuition and explains the benefits. An index of a coin is Z
 (a hidden state) in wikipedia, and the weighted sum in Q(t) is the way
 to compute the expectation `E_{Z|X,t0}`. Often the problem specific
 shortcuts are taken to enumerate the hidden states and to maximize
-Q(t) which may complicate examples.
+Q(t) which complicate many illustrations.
 
 
 P.S. [em.py](em.py)
