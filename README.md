@@ -15,7 +15,7 @@ compute likelihoods for each coin
     L1 = t0 * (1 - t0) = 0.24
     L2 = t0/2 * (1 - t0/2) = 0.16
 
-normalizing them gives the probabilities of picking a coin given the
+Normalizing them yields the probabilities of picking a coin given the
 data
 
     C1 = L1/(L1 + L2) = 0.6
