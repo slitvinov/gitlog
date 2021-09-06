@@ -36,10 +36,10 @@ Note that t is an argument and t0 is absorbed into weights. Set t0 to a value wh
 0.40 0.58 0.60 0.60 0.60
 </pre>
 
-The algorithm postulates the form of Q(t) and the Wikipedia article gives the intuition and explains the benefits. An index of a coin is Z (unobserved data) in Wikipedia, and the weighted sum in Q(t) is how I compute the expectation E_{Z|X,t0}. Often the problem specific shortcuts are taken to enumerate the states of unobserved data and to maximize Q(t) which complicate many illustrations.
+The algorithm postulates the form of Q(t) and the Wikipedia article gives the intuition and explains the benefits. An index of a coin is Z (unobserved data) on Wikipedia, and the weighted sum in Q(t) is how I compute the expectation E_{Z|X,t0}. Often the problem specific shortcuts are taken to enumerate the states of unobserved data and to maximize Q(t) which complicate many illustrations.
 
 
-P.S The maximimum of Q(t) is at
+P.S The maximum of Q(t) is at
 ```
        sqrt(C1 C1  + 8 C1) - C1 - 4
 t = - -----------------------------
