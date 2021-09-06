@@ -36,7 +36,7 @@ Note that t is an argument and t0 is absorbed into weights. Set t0 to a value wh
 0.40 0.58 0.60 0.60 0.60
 </pre>
 
-The algorithm postulates the form of Q(t) and [wikipedia](https://en.wikipedia.org/wiki/Expectation–maximization_algorithm) gives the intuition and explains the benefits. An index of a coin is Z (a hidden state) in wikipedia, and the weighted sum in Q(t) is the way to compute the expectation E_{Z|X,t0}. Often the problem specific shortcuts are taken to enumerate the hidden states and to maximize Q(t) which complicate many illustrations.
+The algorithm postulates the form of Q(t) and the Wikipedia article gives the intuition and explains the benefits. An index of a coin is Z (unobserved data) in Wikipedia, and the weighted sum in Q(t) is how I compute the expectation E_{Z|X,t0}. Often the problem specific shortcuts are taken to enumerate the states of unobserved data and to maximize Q(t) which complicate many illustrations.
 
 
 P.S The maximimum of Q(t) is at
