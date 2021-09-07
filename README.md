@@ -10,12 +10,12 @@ I pick one, toss it
 Head
 </pre>
 
-What are the probabilities I picked each of the coins (posteriors)? The evidance is
+What are the probabilities I picked each of the coins (posteriors)? The evidence is
 
 <pre>
 E = b1/3 + b2/3 + b3/3 = 13/24
 </pre>
-and the poseriors are
+and the posteriors are
 <pre>
 b1/3/E, b2/3/E, b3/3/E = 8/13, 4/13, 1/13
 </pre>
@@ -41,4 +41,4 @@ and the exact posteriors were
 <pre>
 0.615 0.308 0.077
 </pre>
-The maximimum of `L` is `-0.693` and it is an approximation to `log(E) = -0.613`. The approximation is lower as the name suggests.
+The maximum of `L` is `-0.693` and it is an approximation to `log(E) = -0.613`. The approximation is lower, as the name suggests.
