@@ -35,7 +35,7 @@ L = L1 - L2
 </pre>
 The maximum of `L` is at `q = 2/3` and `Q` is
 <pre>
-0.667 0.334 0.00
+0.667 0.334 0.000
 </pre>
 and the exact posteriors were
 <pre>
