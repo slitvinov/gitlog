@@ -26,7 +26,7 @@ The method approximates this answer. I assume posteriors are (pretending the thi
 Q = q, 1 - q, 0
 </pre>
 
-To find `q` the method maximizes evidence lower bound which has two parts: cross entropy of the joined distribution and entropy of `Q`.
+To find `q` the method maximizes evidence lower bound which has two parts: cross entropy of `Q` and the joined distribution and entropy of `Q`.
 
 <pre>
 L1 = q * log(b1/3) + (1 - q) * log(b2/3) = -log(3)*q - log(6)*(1 - q)
