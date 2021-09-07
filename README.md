@@ -42,3 +42,5 @@ and the exact posteriors were
 0.615 0.308 0.077
 </pre>
 The maximum of `L` is `-0.693` and it is an approximation to `log(E) = -0.613`. The approximation is lower, as the name suggests.
+
+P.S. [a plot of L(q)](https://www.wolframalpha.com/input/?i=plot+%28-q*log%28q%29%29-log%283%29*q-log%281-q%29*%281-q%29-log%286%29*%281-q%29%2C+q%3D0..1)
