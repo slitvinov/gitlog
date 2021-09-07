@@ -41,4 +41,4 @@ and the exact answer was
 <pre>
 0.615 0.308 0.077
 </pre>
-L at maximum is `-0.693` which is an approximation to `log(E) = -0.613`. And the approximation is lower as the name suggests.
+The maximimum of `L` is `-0.693` and it is an approximation to `log(E) = -0.613`. The approximation is lower as the name suggests.
