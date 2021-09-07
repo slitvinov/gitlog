@@ -21,11 +21,7 @@ z1: integrate(L2 * P, t, 0, 1);
 z2: integrate(L3 * P, t, 0, 1);
 
 /* [a, 1 - a] */
+p1: integrate(p * L1/3, t, 0, 1);
+p2: integrate(p * L2/3, t, 0, 1);
 
-B: - (a * log(a) + (1 - a) * log(1 - a))
-+ a * integrate(L1 * p, t, 0, 1)
-+ (1 - a) * integrate(L2 * p, t, 0, 1);
-
-draw2d(explicit(B, a, 0, 1));
-dB: diff(B, a);
-
+B: a * log(a) + (1 - a) * log(1 - a) - a * log(p1) - (1 - a)  * log(p2);
