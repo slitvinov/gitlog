@@ -1,0 +1,31 @@
+/*
+L1: t * (1 - t);
+L2: t/2 * (1 - t/2);
+L3: t/4 * (1 - t/4);
+p: 6 * (1 - t) * t;
+*/
+
+
+L1: t;
+L2: t/2;
+L3: t/4;
+p: 1;
+
+L: L1/3 + L2/3 + L3/3;
+E: integrate(L * p, t, 0, 1);
+P: L * p / E;
+
+integrate(P, t, 0, 1);
+z0: integrate(L1 * P, t, 0, 1);
+z1: integrate(L2 * P, t, 0, 1);
+z2: integrate(L3 * P, t, 0, 1);
+
+/* [a, 1 - a] */
+
+B: - (a * log(a) + (1 - a) * log(1 - a))
++ a * integrate(L1 * p, t, 0, 1)
++ (1 - a) * integrate(L2 * p, t, 0, 1);
+
+draw2d(explicit(B, a, 0, 1));
+dB: diff(B, a);
+
