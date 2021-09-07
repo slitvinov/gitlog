@@ -37,7 +37,7 @@ The maximum of `L` is at `q = 2/3` and `Q` is
 <pre>
 0.667 0.334 0.00
 </pre>
-and the exact answer was
+and the exact posteriors are
 <pre>
 0.615 0.308 0.077
 </pre>
