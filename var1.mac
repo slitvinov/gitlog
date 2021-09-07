@@ -1,0 +1,20 @@
+L1: 1;
+L2: 1/2;
+L3: 1/4;
+
+E: L1/3 + L2/3 + L3/3;
+
+z1: L1/3/E;
+z2: L2/3/E;
+z3: L3/3/E;
+
+[z1, z2, z3], numer;
+
+Q1: a * log(L1/3) + b * log(L2/3) + (1 - a - b) * log(L3/3);
+Q2: a * log(a) + b * log(b) + (1 - a - b) * log(1 - a - b);
+Q: Q1 - Q2;
+Q: fullratsimp(Q);
+
+Q, a = z1, b = z2, numer;
+dQ: [diff(Q, a), diff(Q, b)];
+[Q, dQ], a = z1, b = z2, numer;

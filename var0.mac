@@ -1,0 +1,24 @@
+L1: 1;
+L2: 1/2;
+L3: 1/8;
+
+E: L1/3 + L2/3 + L3/3;
+
+z1: L1/3/E;
+z2: L2/3/E;
+z3: L3/3/E;
+
+Q1: a * log(L1/3) + (1 - a) * log(L2/3);
+Q2: a * log(a) + (1 - a) * log(1 - a);
+Q: Q1 - Q2;
+
+a0: 2/3;
+dQ: diff(Q, a);
+[Q, dQ], a = a0, numer;
+
+[z1, z2, z3], numer;
+[a, 1 - a, 0], a = a0, numer;
+
+draw2d(explicit(Q, a, 0, 1));
+
+[Q, log(E)], a = a0, numer;
