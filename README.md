@@ -19,8 +19,8 @@ E = b1/3 + b2/3 + b3/3 = 13/24
 and the posteriors are
 
 <pre>
-b1/3/E, b2/3/E, b3/3/E = 8/13, 4/13, 1/13
-~ 0.615 0.308 0.077
+b1/3/E, b2/3/E, b3/3/E = 8/13, 4/13, 1/13 ~
+0.615 0.308 0.077
 </pre>
 
 The method approximates this answer. It starts with a simpler then general form for posterior distribution `Q`. I simplify by ignoring the third coin:
