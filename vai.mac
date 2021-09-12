@@ -1,0 +1,20 @@
+/*
+HH, TT
+
+*/
+
+i(e):=integrate(e * p(t), t, 0, 1);
+p(t):=1;
+
+H: t * a;
+T: (1 - t * a);
+E: i(H * T) * i(T * H) * i(T * T);
+integrate(E, a, 0, 1);
+
+draw2d(explicit(E, a, 0, 1));
+
+dE: diff(E, a);
+a0: rhs(solve(dE)[3]);
+
+M(x, y):= x * y * p(t)/ i(x * y);
+draw2d(explicit(M(H, T), t, 0, 1), 'color = 'red, explicit(M(T, T), t, 0, 1)), a = a0;
