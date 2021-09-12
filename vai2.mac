@@ -1,0 +1,29 @@
+load("fmin_cobyla");
+
+i(e):=integrate(e, t, 0, 1);
+
+H: a * t;
+T: 1 - t * a;
+E: i(T * T) * i(H * T) * i(H * T);
+dE: diff(E, a);
+a0: rhs(solve(dE)[3]);
+
+M0: T * H / i(T * H), a = a0;
+M1: T * T / i(T * T), a = a0;
+
+/* draw2d('color = 'green, explicit(E, a, 0, 1)); */
+
+u:  (t - (1 - 1/x)) * (1/y - t);
+define(q(t), u / integrate(u, t, 0, 1));
+
+assume(a > 0);
+L1: i(q(t) * log(q(t)));
+L2: i(q(t) * log(H * T)) + i(q(t) * log(T * T));
+
+L: - 2 * L1 + L2;
+
+so: fmin_cobyla(-L, [a, x, y], [1/4, 1/4, 1/4],
+  constraints = [a >= 1/1000, x >= 1/1000, y >= 1/1000, a <= 999/1000, x <= 999/1000, y <= 999/1000]);
+
+
+draw2d(explicit(q(t), t, 0, 1), 'color = 'red, explicit(M0, t, 0, 1), explicit(M1, t, 0, 1)), so[1];
