@@ -8,13 +8,13 @@ p(t):=1;
 
 H: t * a;
 T: (1 - t * a);
-E: i(H * T) * i(T * H) * i(T * T);
-integrate(E, a, 0, 1);
-
+E: i(H * T);
 draw2d(explicit(E, a, 0, 1));
 
 dE: diff(E, a);
-a0: rhs(solve(dE)[3]);
+a0: rhs(linsolve(dE, a)[1]);
 
 M(x, y):= x * y * p(t)/ i(x * y);
-draw2d(explicit(M(H, T), t, 0, 1), 'color = 'red, explicit(M(T, T), t, 0, 1)), a = a0;
+draw2d(explicit(M(H, T), t, 0, 1)), a = a0;
+
+
