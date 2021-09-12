@@ -1,19 +1,22 @@
-/*
-HH, TT
+i(e):=integrate(e, t, 0, 1);
 
-*/
-
-i(e):=integrate(e * p(t), t, 0, 1);
-
-H: t * a;
+H: a * t;
 T: 1 - t * a;
 E: i(H * T);
-draw2d(explicit(E, a, 0, 1));
-
 dE: diff(E, a);
 a0: rhs(linsolve(dE, a)[1]);
+M0: H * T / E, a = a0;
 
-M0: H * T * p(t)/ E, a = a0;
-draw2d(explicit(M0, t, 0, 1));
+/* draw2d(explicit(M0, t, 0, 1)); */
 
+q(z):= 1;
+
+assume(l > 0, l < 1);
+KL: integrate(q(t)/l * log(q(t)), t, lo, lo + l);
+L: KL + integrate(q(t)/l * log(H * T), t, lo, lo + l);
+L: fullratsimp(L);
+
+assume(l > 0);
+
+draw2d(explicit(exp(L), a, 0, 1)), lo = 0.4, l = 0.4;
 
