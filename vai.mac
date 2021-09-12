@@ -4,17 +4,16 @@ HH, TT
 */
 
 i(e):=integrate(e * p(t), t, 0, 1);
-p(t):=1;
 
 H: t * a;
-T: (1 - t * a);
+T: 1 - t * a;
 E: i(H * T);
 draw2d(explicit(E, a, 0, 1));
 
 dE: diff(E, a);
 a0: rhs(linsolve(dE, a)[1]);
 
-M(x, y):= x * y * p(t)/ i(x * y);
-draw2d(explicit(M(H, T), t, 0, 1)), a = a0;
+M0: H * T * p(t)/ E, a = a0;
+draw2d(explicit(M0, t, 0, 1));
 
 
