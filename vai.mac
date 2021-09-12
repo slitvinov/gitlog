@@ -1,3 +1,4 @@
+load('fmin_cobyla);
 i(e):=integrate(e, t, 0, 1);
 
 H: a * t;
@@ -9,14 +10,24 @@ M0: H * T / E, a = a0;
 
 /* draw2d(explicit(M0, t, 0, 1)); */
 
-q(z):= 1;
+u:  (t - (1 - 1/x)) * (1/y - t);
+define(q(t), u / integrate(u, t, 0, 1));
+KL: integrate(q(t) * log(q(t)), t, 0, 1);
+L: -KL + integrate(q(t) * log(H * T), t, 0, 1);
 
-assume(l > 0, l < 1);
-KL: integrate(q(t)/l * log(q(t)), t, lo, lo + l);
-L: KL + integrate(q(t)/l * log(H * T), t, lo, lo + l);
-L: fullratsimp(L);
+/* draw2d(LL, 'color = 'red, last(LL)); */
+L0: L, x = 0.999, y = 75/100;
+L1: L, x = 0.999, y = 60/100;
+L2: L, x = 0.999, y = 80/100;
 
-assume(l > 0);
+draw2d(
+  'color = 'red, explicit(exp(L0), a, 0.5, 0.9),
+  'color = 'green, explicit(exp(L1), a, 0.5, 0.9),
+  'color = 'blue, explicit(exp(L2), a, 0.5, 0.9));
 
-draw2d(explicit(exp(L), a, 0, 1)), lo = 0.4, l = 0.4;
+draw2d(explicit(q(t), t, 0, 1),
+  'color = 'red, explicit(M0, t, 0, 1), yrange = [0, 3]), x = 1, y = 0.75;
+
+fmin_cobyla(-L, [a, x, y], [1/4, 1/4, 1/4],
+  constraints = [a >= 1/1000, x >= 1/1000, y >= 1/1000, a <= 999/1000, x <= 999/1000, y <= 999/1000]);
 
