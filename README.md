@@ -1,44 +1,27 @@
-An illustration of the Variational Bayesian method. I have three coins with biases
+I want to illustrate what variational auctoenocder (VAE) does. I have
+coins with unifromly distributed biases `z` and a "biase scaling
+device" which changes a bias to `z * t` (`t` is between `0` and
+`1`). I pick one coin, scale its bias, and toss two times. Than I pick
+another coin, scale, and toss two times. I had
 
 <pre>
-b1 = 1
-b2 = 1/2
-b3 = 1/8
+Tail-Tail Head-Tail
 </pre>
-I pick one, toss it
+
+I want to guess `t` and biases of two coins I picked. Lets
 <pre>
-Head
+H = z*t
+T = 1 - z*t
 </pre>
 
-What are the probabilities I picked each of the coins (posteriors)? The evidence is
-
+and `i(expr)` is an integral of `expr` by z from 0 to 1. Likelihood
 <pre>
-E = b1/3 + b2/3 + b3/3 = 13/24
+E = i(T * T) * i(H * T)
 </pre>
-
-and the posteriors are
-
+is at maximum for `t = 0.473` and two conditional distributions are weigthed guesses for two biases.
 <pre>
-b1/3/E, b2/3/E, b3/3/E = 8/13, 4/13, 1/13 ~
-0.615 0.308 0.077
+M0 = T * H / i(T * H)
+M1 = T * T / i(T * T)
 </pre>
 
-The method approximates this answer. It starts with a simpler than a general form for posterior distribution `Q`. I simplify by ignoring the third coin:
-
-<pre>
-Q = q, 1 - q, 0
-</pre>
-
-To find `q` the method maximizes _evidence lower bound_ which is cross entropy of `Q` with the joined distribution minus entropy of `Q`.
-
-<pre>
-L1 = q * log(b1/3) + (1 - q) * log(b2/3) = -log(3)*q - log(6)*(1 - q)
-L2 = q * log(q) + (1 - q) * log(1 - q)
-L = L1 - L2
-</pre>
-A plot of `L` is in the cover image. The maximum is at `q = 2/3` and `Q` (an approximation to the true posteriors) is
-<pre>
-0.667 0.334 0.000
-</pre>
-
-The maximum of `L` is `-0.693` and it is an approximation to `log(E) = -0.613`. The approximation is lower, as the name suggests.
+VAE approximates those answers.
