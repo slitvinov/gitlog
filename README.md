@@ -37,8 +37,8 @@ q2(z) = -p*z - (p + 2)/2
 
 Slopes are connected and intersects are fixed by normalization. VAE
 maximizes _evidence lower bound_ to find parameters `p` and `t` which
-is an expectation of likelihoods minus KL-divergence of conditional
-with prior. I choose uniform priors for both coins:
+is a conditional expectation of log-likelihoods minus KL-divergence of
+conditional with prior. I choose uniform prior for both coins:
 
 <pre>
 L1 = i(q1(z)*log(H*T)) + i(q2(z)*log(T*T))
