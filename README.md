@@ -49,7 +49,7 @@ L = L1 - L2
 
 `L` has a maximum at `t = 0.489` and `p = 1.562`. VAE approximations
 and maximum likelihood solutions are in the cover image.  A maximum of
-`L = -2.353` is an approximation to `log(E) = -2.330`
+`L = -2.353` is an approximation to `log(E) = -2.330`.
 
 VAE does not learn enough about generative model to mimic it and to
 tell the probabilities of a data point.
