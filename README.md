@@ -1,5 +1,5 @@
 I want to illustrate what variational auctoenocder (VAE) does. Biases
-(`z`) of my coins are uniform and I have a device which changes a bias
+(`z`) of my coins are uniform, and I have a device which changes a bias
 to `z * t` (`t` is between `0` and `1`). I pick two coins, scale
 biases, and toss two times each.
 
@@ -19,8 +19,8 @@ Likelihood
 <pre>
 E = i(T * T) * i(H * T)
 </pre>
-is a polynom of `t` with maximum at `t = 0.473` and two conditional
-distributions are weigthed guesses for two biases.
+is a polynomial of `t` with maximum at `t = 0.473` and two conditional
+distributions are weighted guesses for two biases.
 
 <pre>
 Q1 = T * H / i(T * H)
@@ -59,3 +59,4 @@ recognition model parameter.
 P.S.S. [code](vae.mac)
 
 <img src="vai.png" align="center">
+
