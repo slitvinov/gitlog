@@ -17,14 +17,14 @@ and `i(expr)` is an integral of `expr` over `z` from `0` to `1`.
 
 Likelihood
 <pre>
-E = i(T * T) * i(H * T)
+E = i(T*T) * i(H*T)
 </pre>
 is a polynomial of `t` with maximum at `t = 0.473` and two conditional
 distributions are weighted guesses for two biases.
 
 <pre>
 Q1 = T * H / i(T * H)
-Q2 = T * T / i(T * T)
+Q2 = T*T / i(T*T)
 </pre>
 
 VAE approximates those answers. It chooses an expression for two conditionals.
@@ -41,7 +41,7 @@ is an expectation of likelihoods minus KL-divergence of conditional
 with prior. I choose uniform priors for both coins:
 
 <pre>
-L1 = i(q1(z) * log(H * T)) + i(q2(z) * log(T * T))
+L1 = i(q1(z) * log(H*T)) + i(q2(z) * log(T*T))
 L2 = i(q1(z) * log(q1(z))) + i(q2(z) * log(q2(z)))
 L = L1 - L2
 </pre>
@@ -52,8 +52,8 @@ learn enough about generative model to mimic it and to tell the
 probabilities of a data point.
 
 P.S. `Tail-Tail` and `Head-Head` are two data points, `z` is a latent
-variable, `t` is the generative model parameter, `log(H * T)` and
-`log(T* T)` is encoder, `q2(z)` and `q1(z)` is decoder, and `p` is a
+variable, `t` is the generative model parameter, `log(H*T)` and
+`log(T*T)` is encoder, `q2(z)` and `q1(z)` is decoder, and `p` is a
 recognition model parameter.
 
 P.S.S. [code](vae.mac)
