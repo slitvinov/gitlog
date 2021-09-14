@@ -29,8 +29,7 @@ Q1(z) = T*H/i(T*H)
 Q2(z) = T*T/i(T*T)
 </pre>
 
-VAE approximates those answers. It assumes an approximation to Q1(z) and Q2(z)
-I select linear functions
+VAE approximates those answers. I make linear approximations to `Q1(z)` and `Q2(z)`:
 
 <pre>
 q1(z) = p*z - (p - 2)/2
