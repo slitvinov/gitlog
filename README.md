@@ -1,6 +1,6 @@
 I want to illustrate what variational auctoenocder (VAE) does. Biases
 (`z`) of my coins are uniform, and I have a device which scales a bias
-to `z * t` (`t` is between `0` and `1`). I pick two coins, scale
+to `z*t` (`t` is between `0` and `1`). I pick two coins, scale
 biases, and toss each coin two times.
 
 <pre>
@@ -17,22 +17,22 @@ and `i(expr)` is an integral of `expr` over `z` from `0` to `1`.
 
 Likelihood
 <pre>
-E = i(T*T) * i(H*T)
+E = i(T*T)*i(H*T)
 </pre>
 is a polynomial of `t` with maximum at `t = 0.473` and two conditional
 distributions are weighted guesses for two biases.
 
 <pre>
-Q1 = T * H / i(T * H)
-Q2 = T*T / i(T*T)
+Q1 = T*H/i(T*H)
+Q2 = T*T/i(T*T)
 </pre>
 
 VAE approximates those answers. It chooses an expression for two conditionals.
 I select linear functions
 
 <pre>
-q1(z) = p * z - (p - 2)/2
-q2(z) = -p * z - (p + 2)/2
+q1(z) = p*z - (p - 2)/2
+q2(z) = -p*z - (p + 2)/2
 </pre>
 
 Slopes are connected and intersects are fixed by normalization. VAE
@@ -41,8 +41,8 @@ is an expectation of likelihoods minus KL-divergence of conditional
 with prior. I choose uniform priors for both coins:
 
 <pre>
-L1 = i(q1(z) * log(H*T)) + i(q2(z) * log(T*T))
-L2 = i(q1(z) * log(q1(z))) + i(q2(z) * log(q2(z)))
+L1 = i(q1(z)*log(H*T)) + i(q2(z)*log(T*T))
+L2 = i(q1(z)*log(q1(z))) + i(q2(z)*log(q2(z)))
 L = L1 - L2
 </pre>
 
