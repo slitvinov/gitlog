@@ -7,7 +7,6 @@ E: i(H * T);
 dE: diff(E, a);
 a0: rhs(linsolve(dE, a)[1]);
 M0: H * T / E, a = a0;
-
 /* draw2d(explicit(M0, t, 0, 1)); */
 
 u:  (t - (1 - 1/x)) * (1/y - t);

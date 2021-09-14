@@ -12,23 +12,14 @@ Q2: subst(t = t0, H * T / i(H * T));
 q1(z):=  p * z - (p-2)/2;
 q2(z):= -p * z + (p+2)/2;
 
-/* assume(t > 0, y > 0, t < 1); */
 assume(p > 0, t > 0);
 L1: i(q1(z) * log(H * T)) + i(q2(z) * log(T * T));
 L2: i(q1(z) * log(q1(z))) + i(q2(z) * log(q2(z)));
 L: L1 - L2;
 
-so: fmin_cobyla(-L, [t, p], [0.4, 0.4], iprint = 1)[1];
-
-draw2d(explicit(q1(z), z, 0, 1), explicit(q2(z), z, 0, 1),
-  'color = 'red, explicit(Q1, z, 0, 1), explicit(Q2, z, 0, 1)), so;
-
+so: fmin_cobyla(-L, [t, p], [0.4, 0.4])[1];
 t, so;
 float(t0);
 
-/*
-
-draw2d('color = 'green, explicit(E, t, 0, 1));
-draw2d(explicit(Q1, z, 0, 1), explicit(Q2, z, 0, 1));
-
-*/
+draw2d(explicit(q1(z), z, 0, 1), explicit(q2(z), z, 0, 1),
+  'color = 'red, explicit(Q1, z, 0, 1), explicit(Q2, z, 0, 1)), so;
