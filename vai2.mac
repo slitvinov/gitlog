@@ -6,31 +6,28 @@ i(e):= integrate(e, z, 0, 1);
 E: i(H * T) * i(T * T);
 dE: diff(E, t);
 t0: rhs(solve(dE)[3]);
-M0: subst(t = t0, T * T / i(T * T));
-M1: subst(t = t0, H * T / i(H * T));
+Q1: subst(t = t0, T * T / i(T * T));
+Q2: subst(t = t0, H * T / i(H * T));
 
-/* draw2d('color = 'green, explicit(E, t, 0, 1));
-draw2d('color = 'green, explicit(M1, z, 0, 1));
+q1(z):=  y * z - (y-2)/2;
+q2(z):= -y * z + (y+2)/2;
 
-*/
-
-u:  (z - (1 - 1/x)) * (1/y - z);
-define(q1(z), subst(x = x1, u / i(u)));
-define(q2(z), subst(x = x2, u / i(u)));
-
-assume(t > 0);
+assume(t > 0, y > 0, t < 1);
 L1: i(q1(z) * log(q1(z))) + i(q2(z) * log(q2(z)));
 L2: i(q1(z) * log(H * T)) + i(q2(z) * log(T * T));
-
 L: - L1 + L2;
 
-so: fmin_cobyla(-L, [t, x1, x2, y], [1/4, 1/4, 1/4, 1/4],
-  constraints = [
-  t >= 1/1000, x1 >= 1/1000, x2 >= 1/1000, y >= 1/1000,
-  t <= 999/1000, x1 <= 999/1000, x2 <= 999/1000, y <= 999/1000])[1];
+so: fmin_cobyla(-L, [t, y], [0.4, 0.4], iprint = 1)[1];
 
 draw2d(explicit(q1(z), z, 0, 1), explicit(q2(z), z, 0, 1),
-  'color = 'red, explicit(M0, z, 0, 1), explicit(M1, z, 0, 1)), so;
+  'color = 'red, explicit(Q1, z, 0, 1), explicit(Q2, z, 0, 1)), so;
 
 t, so;
 float(t0);
+
+/*
+
+draw2d('color = 'green, explicit(E, t, 0, 1));
+draw2d(explicit(Q1, z, 0, 1), explicit(Q2, z, 0, 1));
+
+*/
