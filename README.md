@@ -51,7 +51,9 @@ learn enough about generative model to mimic it and to tell the
 probabilities of the data points.
 
 P.S. `Tail-Tail` and `Head-Head` are two data points, `z` is a latent
-variable, `t` the generative model parameter, log(H * T) and log(T *
-T) are encoders, and q2(z) and q1(z) are decoders.
+variable, `t` the generative model parameter, `log(H * T)` and `log(T *
+T)` are encoders, and `q2(z)` and `q1(z)` are decoders.
+
+P.S.S. [code](vae.mac)
 
 <img src="vai.png" align="center">
