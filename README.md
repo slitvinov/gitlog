@@ -1,7 +1,7 @@
 I want to illustrate what variational auctoenocder (VAE) does. Biases
 (`z`) of my coins are uniform, and I have a device which scales a bias
 to `z * t` (`t` is between `0` and `1`). I pick two coins, scale
-biases, and toss two times each.
+biases, and toss each coin two times.
 
 <pre>
 First coin: Tail-Tail
