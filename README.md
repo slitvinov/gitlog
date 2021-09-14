@@ -8,13 +8,14 @@ First coin: Tail-Tail
 Second coin: Head-Tail
 </pre>
 
-I want to guess `t` and biases of two coins Lets
+I want to guess `t` and biases of two coins. Notation
 <pre>
 H = z*t
 T = 1 - z*t
 </pre>
+and `i(expr)` is an integral of `expr` over `z` from 0 to 1.
 
-and `i(expr)` is an integral of `expr` over `z` from 0 to 1. Likelihood
+Likelihood
 <pre>
 E = i(T * T) * i(H * T)
 </pre>
