@@ -49,7 +49,7 @@ L = L1 - L2
 `L` has a maximum at `t = 0.489` and `p = 1.562`. VAE approximations
 and maximum likelihood solutions are in the cover image. VAE does not
 learn enough about generative model to mimic it and to tell the
-probabilities of the data points.
+probabilities of a data point.
 
 P.S. `Tail-Tail` and `Head-Head` are two data points, `z` is a latent
 variable, `t` is the generative model parameter, `log(H * T)` and
