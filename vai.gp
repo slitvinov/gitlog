@@ -12,7 +12,7 @@ unset grid
 set key bottom center
 set border 3
 set xlabel "bias"
-set ylabel "conditional probability"
+set ylabel "probability density"
 set xtics axis nomirror
 set ytics 0.5 axis nomirror
 plot  [0:1][0:] q1(x) dashtype 2 lc 1 t "", \
