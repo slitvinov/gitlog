@@ -1,11 +1,11 @@
 I want to illustrate what variational auctoenocder (VAE) does. Biases
 (`z`) of my coins are uniform and I have a device which changes a bias
-to `z * t` (`t` is between `0` and `1`). I pick one coin, scale its
-bias, and toss it two times. Than I pick another coin, scale, and toss
-two times. I had
+to `z * t` (`t` is between `0` and `1`). I two coins, scale biases,
+bias, and toss two times each.
 
 <pre>
-Tail-Tail Head-Tail
+First coin: Tail-Tail
+Second coin: Head-Tail
 </pre>
 
 I want to guess `t` and biases of two coins Lets
