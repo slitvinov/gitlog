@@ -8,7 +8,7 @@ First coin: Tail-Tail
 Second coin: Head-Tail
 </pre>
 
-I want to guess `t` and biases of two coins. Notation
+I want to guess `t` and biases of two coins. I need notation
 <pre>
 H = z*t
 T = 1 - z*t
