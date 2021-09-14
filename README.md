@@ -20,7 +20,7 @@ Likelihood
 E = i(T*T)*i(H*T)
 </pre>
 is a polynomial of `t` with maximum at `t = 0.473` and two conditional
-distributions are weighted guesses for two biases.
+distributions are weighted guesses for two biases (polynomials of `z`):
 
 <pre>
 Q1 = T*H/i(T*H)
