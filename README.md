@@ -13,7 +13,7 @@ I want to guess `t` and biases of two coins. Notation
 H = z*t
 T = 1 - z*t
 </pre>
-and `i(expr)` is an integral of `expr` over `z` from 0 to 1.
+and `i(expr)` is an integral of `expr` over `z` from `0` to `1`.
 
 Likelihood
 <pre>
