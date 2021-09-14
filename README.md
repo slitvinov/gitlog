@@ -20,14 +20,14 @@ Likelihood
 E = i(T*T)*i(H*T)
 </pre>
 is a polynomial of `t` with maximum at `t = 0.473` and two conditional
-distributions are weighted guesses for two biases (polynomials of `z`):
+distributions are weighted guesses for two biases:
 
 <pre>
-Q1 = T*H/i(T*H)
-Q2 = T*T/i(T*T)
+Q1(z) = T*H/i(T*H)
+Q2(z) = T*T/i(T*T)
 </pre>
 
-VAE approximates those answers. It chooses an expression for two conditionals.
+VAE approximates those answers. It assumes an approximation to Q1(z) and Q2(z)
 I select linear functions
 
 <pre>
@@ -35,10 +35,10 @@ q1(z) = p*z - (p - 2)/2
 q2(z) = -p*z - (p + 2)/2
 </pre>
 
-Slopes are connected and intersects are fixed by normalization. VAE
+The slopes are connected and the intersects are fixed by normalization. VAE
 maximizes _evidence lower bound_ to find parameters `p` and `t` which
 is a conditional expectation of log-likelihoods minus KL-divergence of
-conditional with prior. I choose uniform prior for both coins:
+conditional with prior. I choose uniform prior:
 
 <pre>
 L1 = i(q1(z)*log(H*T)) + i(q2(z)*log(T*T))
