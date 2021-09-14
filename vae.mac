@@ -21,4 +21,9 @@ so: fmin_cobyla(-L, [t, p], [0.4, 0.4])[1] $
 draw2d(explicit(q1(z), z, 0, 1), explicit(q2(z), z, 0, 1),
   'color = 'red, explicit(Q1, z, 0, 1), explicit(Q2, z, 0, 1)), so $
 
-/* https://maxima.sourceforge.io */
+/*
+
+Online:
+http://maxima.cesga.es
+
+*/
