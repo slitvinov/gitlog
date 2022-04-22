@@ -1,0 +1,21 @@
+/*
+
+x[k]: process
+
+x[k] = x[k - 1] + w[k]
+z[k] = x[k] + v[k]
+
+w[k] ~ N(0, Q)
+v[k] ~ N(0, R)
+
+
+xhm[k] = xhm[k - 1]
+Pm[k] = P[k - 1] + Q
+
+K[k] = Pm[k] / (Pm[k] + R)
+xh[k] = xhm[k] + K[k] * (z[k] - xhm[k])
+P[k] = (1 - K[k])*Pm[k]
+
+*/
+
+
