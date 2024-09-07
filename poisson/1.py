@@ -1,20 +1,3 @@
----
-jupytext:
-  formats: ipynb,md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.16.4
-kernelspec:
-  display_name: Python 3
-  name: python3
----
-
-[![Open in
-Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/slitvinov/gitlog/blob/main/poisson/1.ipynb)
-
-```{code-cell}
 import matplotlib.pyplot as plt
 import scipy
 import numpy as np
@@ -43,5 +26,6 @@ sol = scipy.sparse.linalg.spsolve(A, rhs)
 fi = np.zeros(m)
 for i, s in zip(ik, sol):
     fi[i] = s
-plt.plot(fi);
-```
+plt.plot(fi)
+plt.tight_layout()
+plt.savefig("1.png")
