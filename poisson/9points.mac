@@ -1,0 +1,30 @@
+declare(h, constant);
+assumescalar: false;
+ff: f[0, 0];
+uu: u[0, 0];
+
+A: (1 + (h^2/12) . d2y) . d2x . uu;
+B: (1 + (h^2/12) . d2x) . d2y . uu;
+C: (1 + (h^2/12) . d2x + (h^2/12) . d2y) . ff;
+
+pre(X):=not atom(X) and (op(X) = 'f or op(X) = 'u);
+dx(X):= block([ij: args(X), o: op(X), i, j], i: ij[1], j: ij[2], 1/h^2 * (o[i + 1, j] - 2 * o[i, j] + o[i - 1, j]));
+dy(X):= block([ij: args(X), o: op(X), i, j], i: ij[1], j: ij[2], 1/h^2 * (o[i, j + 1] - 2 * o[i, j] + o[i, j - 1]));
+
+matchdeclare(X, pre);
+tellsimpafter(d2x . X, dx(X));
+tellsimpafter(d2y . X, dy(X));
+
+Y: expand(A + B - C), h = 1;
+L: listofvars(Y);
+uvars: sublist(L, lambda([e], op(e) = 'u));
+fvars: sublist(L, lambda([e], op(e) = 'f));
+
+for v in uvars do
+block([x: part(v, 1), y: part(v, 2)],
+  printf(true, "add(~a, ~a, ~a)~%", 'i + x, 'j + y, coeff(Y, v)));
+
+for v in fvars do
+block([x: part(v, 1), y: part(v, 2)],
+  printf(true, "f0 += ~a * f(~a, ~a)~%", coeff(Y, v), 'i + x, 'j + y));
+

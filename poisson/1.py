@@ -18,9 +18,9 @@ rhs = []; row = []; col = []; data = []; ik = {}
 for i in range(m):
     if not boundary(i):
         rhs.append(-1)
-        add(i, -1)
-        add(i + 1, 1 / 2)
-        add(i - 1, 1 / 2)
+        add(i, -2)
+        add(i + 1, 1)
+        add(i - 1, 1)
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 sol = scipy.sparse.linalg.spsolve(A, rhs)
 fi = np.zeros(m)

@@ -24,11 +24,11 @@ for i in range(m):
     for j in range(m):
         if boundary(i, j) is None:
             rhs.append(0)
-            add(i, j, -1)
-            add(i - 1, j, 1 / 4)
-            add(i + 1, j, 1 / 4)
-            add(i, j - 1, 1 / 4)
-            add(i, j + 1, 1 / 4)
+            add(i, j, -4)
+            add(i - 1, j, 1)
+            add(i + 1, j, 1)
+            add(i, j - 1, 1)
+            add(i, j + 1, 1)
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 sol = scipy.sparse.linalg.spsolve(A, rhs)
 fi = np.empty((m, m))
