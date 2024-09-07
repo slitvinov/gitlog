@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import scipy
 import numpy as np
 import math
+import itertools
 
 
 def u(i, j):
@@ -39,7 +40,7 @@ def nine():
     f0 += 2 / 3 * f(i, j)
     f0 += 1 / 12 * f(i, j + 1)
     f0 += 1 / 12 * f(i + 1, j)
-    rhs.append(f0 * h2)
+    rhs.append(f0 * h**2)
     add(i - 1, j - 1, 1 / 6)
     add(i - 1, j, 2 / 3)
     add(i - 1, j + 1, 1 / 6)
@@ -52,7 +53,7 @@ def nine():
 
 
 def five():
-    rhs.append(f(i, j) * h2)
+    rhs.append(f(i, j) * h**2)
     add(i, j, -4)
     add(i - 1, j, 1)
     add(i + 1, j, 1)
@@ -60,37 +61,20 @@ def five():
     add(i, j + 1, 1)
 
 
-plt.rcParams["image.cmap"] = "jet"
-m = 10
-h2 = 1 / m**2
-ik = {}
-data = []
-col = []
-row = []
-rhs = []
-for i in range(m):
-    for j in range(m):
-        if boundary(i, j) is None:
-            five()
-A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
-sol = scipy.sparse.linalg.spsolve(A, rhs)
-fi = np.empty((m, m))
-ue = np.empty((m, m))
-fi.fill(None)
-ue.fill(None)
-l2 = 0
-for s, t in zip(sol, ik):
-    fi[t] = s
-    ue[t] = u(*t)
-    l2 += (fi[t] - ue[t])**2
-plt.imshow(fi.T, origin="lower")
-plt.axis("off")
-plt.tight_layout()
-plt.savefig("9points.png")
-plt.close()
-
-plt.imshow(ue.T, origin="lower")
-plt.axis("off")
-plt.tight_layout()
-plt.savefig("9points.exact.png")
-print("l2: %.2e" % (math.sqrt(l2 / m**2)))
+for scheme, m in itertools.product((five, nine), (10, 20, 40)):
+    h = 1 / m
+    ik = {}
+    data = []
+    col = []
+    row = []
+    rhs = []
+    for i in range(m):
+        for j in range(m):
+            if boundary(i, j) is None:
+                scheme()
+    A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
+    sol = scipy.sparse.linalg.spsolve(A, rhs)
+    err = 0
+    for s, t in zip(sol, ik):
+        err += (s - u(*t))**2
+    print(f"{scheme.__name__} {h:.3f} {math.sqrt(err / m**2):.2e}")
