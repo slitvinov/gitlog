@@ -2,8 +2,12 @@ import matplotlib.pyplot as plt
 import scipy
 import numpy as np
 import random
+
+
 def boundary(i):
     return i == 0 or i == m - 1 or i in boundaries
+
+
 def add(i, c):
     if not boundary(i):
         if not i in ik:
@@ -11,10 +15,16 @@ def add(i, c):
         col.append(ik[i])
         row.append(len(rhs) - 1)
         data.append(c)
+
+
 m = 100
 random.seed(12)
 boundaries = random.sample(range(m), 8)
-rhs = []; row = []; col = []; data = []; ik = {}
+rhs = []
+row = []
+col = []
+data = []
+ik = {}
 for i in range(m):
     if not boundary(i):
         rhs.append(-1)

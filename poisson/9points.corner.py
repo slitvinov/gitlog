@@ -4,10 +4,17 @@ import numpy as np
 import scipy
 
 
-def u(i, j):
-    x = i / m
-    y = j / m
+def atan2(y, x):
     th = math.atan2(y, x)
+    if th < 0:
+        th += 2 * math.pi
+    return th
+
+
+def u(i, j):
+    x = i / m - 0.5
+    y = j / m - 0.5
+    th = atan2(y, x)
     r2 = x**2 + y**2
     return r2**(1 / 3) * math.sin(2 * th / 3)
 
@@ -54,26 +61,39 @@ def five():
 
 plt.rcParams["image.cmap"] = "jet"
 scheme = nine
-m = 10
+m = 400
 h2 = 1 / m**2
 ik = {}
 data = []
 col = []
 row = []
 rhs = []
-for i in range(m):
-    for j in range(m):
+for i in range(-1, m + 1):
+    for j in range(-1, m + 1):
         if boundary(i, j) is None:
             scheme()
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 sol = scipy.sparse.linalg.spsolve(A, rhs)
-error = np.empty((m, m))
+error = np.empty((m + 1, m + 1))
+field = np.empty((m + 1, m + 1))
+field.fill(None)
 error.fill(None)
 for t, s in zip(ik, sol):
-    error[t] = (s - u(*t))**2
-plt.imshow(error.T, origin="lower")
-plt.colorbar()
+    error[t] = abs(s - u(*t))
+    field[t] = u(*t)
+
+lo, hi = np.quantile(error[~np.isnan(error)], (0.6, 0.99))
+plt.contour(error.T,
+            levels=np.linspace(lo, hi, 15),
+            colors="k",
+            origin="lower")
+plt.axis("equal")
 plt.axis("off")
 plt.tight_layout()
-plt.savefig("9points.corner.png")
+plt.savefig(f"9points.error.png")
 plt.close()
+
+plt.imshow(field.T, origin="lower")
+plt.axis("off")
+plt.tight_layout()
+plt.savefig("9points.field.png")
