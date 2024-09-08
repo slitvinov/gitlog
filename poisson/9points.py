@@ -59,7 +59,7 @@ def five():
     add(i, j + 1, 1)
 
 
-scipy = five
+scheme = five
 m = 10
 h2 = 1 / m**2
 ik = {}
