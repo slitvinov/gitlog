@@ -1,21 +1,23 @@
 ---
-jupytext:
-  formats: ipynb,md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.16.4
-kernelspec:
-  display_name: Python 3 (ipykernel)
-  language: python
-  name: python3
+jupyter:
+  jupytext:
+    cell_metadata_json: true
+    formats: ipynb,md
+    text_representation:
+      extension: .md
+      format_name: markdown
+      format_version: '1.3'
+      jupytext_version: 1.16.4
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
 ---
 
 [![Open in
 Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/slitvinov/gitlog/blob/main/poisson/9points.ipynb)
 
-```{code-cell} ipython3
+```python
 import itertools
 import math
 import numpy as np
@@ -80,7 +82,7 @@ for scheme, m in itertools.product((five, nine), (10, 20, 40)):
     print(f"{scheme.__name__} {h:8.3f} {math.sqrt(err / m**2):10.2e}")
 ```
 
-```
+```md
 Table 12.5.1: Comparison of second-order and fourth-order schemes
 (from [2])
 
