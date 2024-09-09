@@ -15,7 +15,7 @@ kernelspec:
 [![Open in
 Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/slitvinov/gitlog/blob/main/poisson/9points.ipynb)
 
-```{code-cell} ipython3
+```{code-cell}
 import itertools
 import math
 import numpy as np
