@@ -13,12 +13,11 @@ https://colab.research.google.com/github/slitvinov/gitlog/blob/main/poisson/2.ip
 jupytext --sync 1.md 2.md
 ```
 
-
-A five-point stencil (dereived by Rossent in 1975) to approximate
-Laplace operator gains a lot of accury for the model computational
-work compare to popular five-point stencil. Here is a complite example
-which comapares the two and reporduced the table from (Strikwerda's
-books, references are in the notebook).  And we talking about accuracy
-~1e-8 on the grid like in the picture.
+A nine-point stencil (derived by Rosser in 1975) offers superior
+accuracy for approximating the Laplace operator compared to the common
+five-point stencil. Here's an example comparing both, reproducing a
+table from Strikwerda's book (references in the notebook):
 
 https://colab.research.google.com/github/slitvinov/gitlog/blob/main/poisson/9points.ipynb
+
+It achieves 1e-8 accuracy on the grid shown.
