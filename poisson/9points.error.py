@@ -3,25 +3,17 @@ import scipy
 import numpy as np
 import math
 import itertools
-
-
 def u(i, j):
     x = i / m
     y = j / m
     return math.cos(x) * math.sin(y)
-
-
 def f(i, j):
     x = i / m
     y = j / m
     return -2 * math.cos(x) * math.sin(y)
-
-
 def boundary(i, j):
     cond = i == 0 or j == 0 or j == m or i == m
     return u(i, j) if cond else None
-
-
 def add(i, j, c):
     val = boundary(i, j)
     if boundary(i, j) is None:
@@ -32,8 +24,6 @@ def add(i, j, c):
         row.append(len(rhs) - 1)
     else:
         rhs[-1] -= c * val
-
-
 def nine():
     f0 = 1 / 12 * f(i - 1, j)
     f0 += 1 / 12 * f(i, j - 1)
@@ -50,8 +40,6 @@ def nine():
     add(i + 1, j - 1, 1 / 6)
     add(i + 1, j, 2 / 3)
     add(i + 1, j + 1, 1 / 6)
-
-
 def five():
     rhs.append(f(i, j) * h**2)
     add(i, j, -4)
@@ -59,8 +47,6 @@ def five():
     add(i + 1, j, 1)
     add(i, j - 1, 1)
     add(i, j + 1, 1)
-
-
 for scheme, m in itertools.product((five, nine), (10, 20, 40)):
     h = 1 / m
     ik = {}

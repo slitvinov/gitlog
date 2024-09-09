@@ -79,7 +79,3 @@ for scheme, m in itertools.product((five, nine), (10, 20, 40)):
         err += (s - u(*t))**2
     print(f"{scheme.__name__} {h:8.3f} {math.sqrt(err / m**2):10.2e}")
 ```
-
-```{code-cell} ipython3
-
-```
