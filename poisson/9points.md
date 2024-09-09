@@ -30,13 +30,13 @@ def boundary(i, j):
 def add(i, j, c):
     val = boundary(i, j)
     if boundary(i, j) is None:
-	if (i, j) not in ik:
-	    ik[i, j] = len(ik)
-	data.append(c)
-	col.append(ik[i, j])
-	row.append(len(rhs) - 1)
+        if (i, j) not in ik:
+            ik[i, j] = len(ik)
+        data.append(c)
+        col.append(ik[i, j])
+        row.append(len(rhs) - 1)
     else:
-	rhs[-1] -= c * val
+        rhs[-1] -= c * val
 def nine():
     f0 = 1 / 12 * f(i - 1, j)
     f0 += 1 / 12 * f(i, j - 1)
@@ -69,14 +69,14 @@ for scheme, m in itertools.product((five, nine), (10, 20, 40)):
     row = []
     rhs = []
     for i in range(m):
-	for j in range(m):
-	    if boundary(i, j) is None:
-		scheme()
+        for j in range(m):
+            if boundary(i, j) is None:
+                scheme()
     A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
     sol = scipy.sparse.linalg.spsolve(A, rhs)
     err = 0
     for s, t in zip(sol, ik):
-	err += (s - u(*t))**2
+        err += (s - u(*t))**2
     print(f"{scheme.__name__} {h:8.3f} {math.sqrt(err / m**2):10.2e}")
 ```
 
