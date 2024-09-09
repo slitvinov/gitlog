@@ -15,7 +15,30 @@ kernelspec:
 [![Open in
 Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/slitvinov/gitlog/blob/main/poisson/9points.ipynb)
 
-```{code-cell}
++++
+
+```
+Table 12.5.1: Comparison of second-order and fourth-order schemes
+(from [2])
+
+|       | Second-order |       | Fourth-order |       |
+|-------+--------------+-------+--------------+-------|
+|     h |       Errors | Order |        Error | Order |
+|-------+--------------+-------+--------------+-------|
+| 0.100 |       2.79-5 |       |       9.40-9 |       |
+| 0.050 |       7.01-6 |  1.99 |      5.85-10 |  4.01 |
+| 0.025 |       1.75-6 |  2.00 |      3.66-11 |  4.00 |
+
+[1] Rosser, J. B. (1975). Nine-point difference solutions for
+Poisson's equation. Computers & Mathematics with Applications, 1(3-4),
+351-360.
+
+[2] Strikwerda, J. C. (2004). Finite difference schemes and partial
+differential equations. Society for Industrial and Applied
+Mathematics.
+```
+
+```{code-cell} ipython3
 import itertools
 import math
 import numpy as np
