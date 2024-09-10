@@ -1,30 +1,30 @@
-declare(mu, constant);
-declare([xb, yb, xf, yf, tb], linear);
+declare(nu, constant)$
+declare([xb, yb, xf, yf, tb, tm, xp, yp], linear)$
 
 B(expr)::=buildq([expr],
     block([ij: args(X), o: op(X), i, j], i: ij[1], j: ij[2],
-      expr));
+      expr))$
+pre(X):=not atom(X) and (op(X) = 'f or op(X) = 'p or op(X) = u[0] or op(X) = u[1])$
+matchdeclare(X, pre)$
 
-pre(X):=not atom(X) and (op(X) = 'f or op(X) = 'p or op(X) = u[0] or op(X) = u[1]);
-matchdeclare(X, pre);
+prev(o):= if o = u[0] then u0[0] else u0[1];
 
-tellsimpafter(tb(X), B(o[i, j] - prev(o)[i, j]));
+tellsimpafter(tb(X), B(o[i, j] - prev(o)[i, j]))$
+tellsimpafter(xb(X), B(o[i, j] - o[i - 1, j]))$
+tellsimpafter(yb(X), B(o[i, j] - o[i, j - 1]))$
+tellsimpafter(xf(X), B(o[i + 1, j] - o[i, j]))$
+tellsimpafter(yf(X), B(o[i, j + 1] - o[i, j]))$
+tellsimpafter(tm(X), B(prev(o)[i, j]))$
+tellsimpafter(xp(X), B(o[i + 1, j]));
+tellsimpafter(yp(X), B(o[i, j + 1]));
+ff: fx[0, 0]$
+ux: u[0][0, 0]$
+uy: u[1][0, 0]$
+pp: p[0, 0]$
+uu: ux;
 
-tellsimpafter(xb(X), B(o[i, j] - o[i - 1, j]));
-tellsimpafter(yb(X), B(o[i, j] - o[i, j - 1]));
-
-tellsimpafter(xf(X), B(o[i + 1, j] - o[i, j]));
-tellsimpafter(yf(X), B(o[i, j + 1] - o[i, j]));
-
-
-ff: fx[0, 0];
-ux: u[0][0, 0];
-uy: u[0][0, 0];
-pp: p[0, 0];
-
-A: - mu * xf(xb(ux)) + yf(yb(ux));
-B: 1/2 * (ux * xf(ux) + uy * yf(ux));
-C: xb(pp);
-
-
-e: expand(A + B + C);
+A: tb(uu);
+B: xf(xb(uu)) + yf(yb(uu));
+C: tm(xp(ux)) * xf(uu) + tm(yp(uy)) * yf(uu);
+D: tm(ux) * xf(uu) + tm(uy) * yf(uu);
+E: xb(pp); /* TODO: */
