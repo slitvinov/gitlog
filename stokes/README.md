@@ -6,7 +6,6 @@ surface. Physics of fluids, 8(12), 2182.
 and Navier–Stokes equations. SIAM Journal on Scientific and
 Statistical Computing, 5(1), 56-68.
 
-
 3. Krzhivitski, A., & Ladyzhenskaya, O. A. (1966). The method of nets
 for the nonstationary Navier-Stokes equations. In Boundary Value
 Problems of Mathematical Physics (Vol. 92).
