@@ -1,0 +1,27 @@
+declare(mu, constant);
+declare([tb, xb, yb, xf, yf], linear);
+
+B(expr)::=buildq([expr],
+    block([ij: args(X), o: op(X), i, j], t: ij[1], i: ij[2], j: ij[3],
+      expr));
+
+pre(X):=not atom(X) and (op(X) = 'f or op(X) = 'ux or op(X) = 'uy);
+matchdeclare(X, pre);
+
+tellsimpafter(tb(X), B(o[t, i, j] - o[t - 1, i, j]));
+tellsimpafter(xb(X), B(o[t, i, j] - o[t, i - 1, j]));
+tellsimpafter(yb(X), B(o[t, i, j] - o[t, i, j - 1]));
+
+tellsimpafter(xf(X), B(o[t, i + 1, j] - o[t, i, j]));
+tellsimpafter(yf(X), B(o[t, i, j + 1] - o[t, i, j]));
+
+
+
+ff: fx[0, 0, 0];
+uu: ux[0, 0, 0];
+pp: p[0, 0, 0];
+
+A: tb(ux[0, 0, 0]);
+B: - mu * xf(xb(ux[0, 0, 0])) + yf(yb(ux[0, 0, 0]));
+
+C: 1/2 * ux[0, 0, 0] * xf(ux[0, 0, 0]);
