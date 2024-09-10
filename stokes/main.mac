@@ -28,3 +28,6 @@ B: xf(xb(uu)) + yf(yb(uu));
 C: tm(xp(ux)) * xf(uu) + tm(yp(uy)) * yf(uu);
 D: tm(ux) * xf(uu) + tm(uy) * yf(uu);
 E: xb(pp); /* TODO: */
+
+vars: listofvars(C);
+for v in vars do print(v, "=", coeff(expand(C), v));
