@@ -13,12 +13,9 @@ def boundaryp(i):
 
 
 def f(i, d):
-    return i
-
+    return 1 / h
 
 FIELDS = {("u", 0): 0, ("p", None): 1}
-
-
 def add(f, c, i, d=None):
     if not boundaryp(i):
         if i not in ik:
@@ -34,7 +31,8 @@ def add(f, c, i, d=None):
 
 plt.rcParams["image.cmap"] = "jet"
 nf = len(FIELDS)
-m = 4
+m = 50
+h = 1 / m
 ik = {}
 data = []
 col = []
@@ -51,16 +49,15 @@ for i in range(-1, m + 1):
         rhs[-1] += f(i, 0)
     if not boundaryp(i) or not boundaryp(i + 1):
         rhs.append(0)
-        add("u", -1, i, 0)
-        add("u", 1, i + 1, 0)
-rhs.append(0)
+        add("u", -1/h, i, 0)
+        add("u", 1/h, i + 1, 0)
+rhs.append(10)
 add("p", 1, 1)
 
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
-#sol = scipy.sparse.linalg.spsolve(A, rhs)
-sol, *rest = scipy.sparse.linalg.lsqr(A, rhs)
-print(A * sol - rhs)
-
+sol, istop, itn, r1norm, r2norm, acond, *rest = scipy.sparse.linalg.lsqr(
+    A, rhs)
+print(f"{acond=} {r1norm=}")
 print("unknown:", nf * len(ik))
 print("equations:", len(rhs))
 
@@ -69,7 +66,8 @@ field.fill(None)
 for i, k in ik.items():
     l = nf * k
     field[:, i] = sol[l:l + nf]
-for name, f in zip(("u", "p"), field):
-    plt.plot(f, "o-")
-plt.tight_layout()
-plt.savefig("1.png")
+for name, scale, f in zip(("u", "p"), (h, h**2), field):
+    plt.plot(scale * f, '-o')
+    plt.tight_layout()
+    plt.savefig("1.%s.png" % name)
+    plt.close()

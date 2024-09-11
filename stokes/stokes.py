@@ -14,7 +14,7 @@ def boundaryp(i, j):
 
 
 def f(i, j, d):
-    return d / h
+    return d * h
 
 
 def add(f, c, i, j, d=None):
@@ -34,7 +34,7 @@ def add(f, c, i, j, d=None):
 plt.rcParams["image.cmap"] = "jet"
 FIELDS = {("u", 0): 0, ("u", 1): 1, ("p", None): 2}
 nf = len(FIELDS)
-m = 80
+m = 20
 ik = {}
 data = []
 col = []
@@ -75,21 +75,20 @@ for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
         rhs.append(0)
         add("p", 0, i, j)
         break
-
-print("unknown:", nf * len(ik))
-print("equations:", len(rhs))
-A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 # sol = scipy.sparse.linalg.spsolve(A, rhs)
+A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 sol, istop, itn, r1norm, r2norm, acond, *rest = scipy.sparse.linalg.lsqr(
     A, rhs)
-print(istop, itn, r1norm, acond)
+print(f"{acond=} {r1norm=}")
+print("unknown:", nf * len(ik))
+print("equations:", len(rhs))
 
 field = np.empty((nf, m + 1, m + 1))
 field.fill(None)
 for (i, j), k in ik.items():
     l = nf * k
     field[:, i, j] = sol[l:l + nf]
-for name, scale, f in zip(("ux", "uy", "p"), (h, h, h**2), field):
+for name, scale, f in zip(("ux", "uy", "p"), (h, h, 1), field):
     plt.imshow(f.T * scale, origin="lower")
     plt.colorbar()
     plt.axis("off")
