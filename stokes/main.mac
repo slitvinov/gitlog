@@ -15,13 +15,13 @@ dump0(v, c):= block([o, i, j, d],
   d: rest(args(v), 3),
   printf(true, "add(~s, ~a, ~{~a~^, ~})~%", o, c, append(['i + i, 'j + j], d)))$
 
-dump(X, Coef):= block([va, re], 
+dump(X, Coef):= block([va, re],
   X: ratexpand(Coef * X),
   va: gvars(X),
   for v in va do dump0(v, coeff(X, v)),
   for v in va do X: coeff(X, v, 0),
   if X # 0 then printf(true, "rhs[-1] += ~a~%", apply1(X, prev0, prev1)))$
-  
+
 
 matchdeclare(X, pre)$
 
@@ -61,5 +61,3 @@ F: f[0, 0, i]$
 G: sumk(xf(k) . uu[k])$
 
 /* dump(A - mu * B + 1/2 * C + 1/2 * D + E + F, 1); */
-
-
