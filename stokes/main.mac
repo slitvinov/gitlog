@@ -17,7 +17,7 @@ dump0(v, c):= block([o, i, j, d],
 
 dump(X, Coef):= block([va, re],
   X: ratexpand(Coef * X),
-  va: gvars(X),
+  va: sort(gvars(X), lambda([x, y], ordergreatp(op(x), op(y)))),
   for v in va do dump0(v, coeff(X, v)),
   for v in va do X: coeff(X, v, 0),
   if X # 0 then printf(true, "rhs[-1] += ~a~%", apply1(X, prev0, prev1)))$
@@ -50,14 +50,19 @@ pp: p[0, 0, 0]$
 uu[0]: u[0, 0, 0, 0]$
 uu[1]: u[0, 0, 0, 1]$
 
-i: 1$
-ui: u[0, 0, 0, i]$
-A: tb . ui$
-B: sumk(xf(k) . xb(k) . ui), expand$
-C: sumk(tm . xp(k) . uu[k] * xf(k) . ui), ratexpand$
-D: sumk(tm . uu[k] * xb(k) . ui)$
-E: xb(i) . pp, ratexpand$
-F: f[0, 0, i]$
-G: sumk(xf(k) . uu[k])$
+for i in [0, 1] do (
+  ui: u[0, 0, 0, i],
+  A: tb . ui,
+  B: expand(sumk(xf(k) . xb(k) . ui)),
+  C: ratexpand(sumk(tm . xp(k) . uu[k] * xf(k) . ui)),
+  D: sumk(tm . uu[k] * xb(k) . ui),
+  E: ratexpand(xb(i) . pp),
+  F: f[0, 0, i],
+  printf(true, "rhs.append(0)~%"),
+  /* dump(A - mu * B + C/2 + D/2 + E - F, 1) */
+  dump(B + E - F, 1)
+  )$
 
-/* dump(A - mu * B + 1/2 * C + 1/2 * D + E + F, 1); */
+printf(true, "rhs.append(0)~%")$
+G: sumk(xf(k) . uu[k]) $
+dump(G, 1)$

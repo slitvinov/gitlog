@@ -62,7 +62,6 @@ def five():
 plt.rcParams["image.cmap"] = "jet"
 scheme = nine
 m = 400
-h2 = 1 / m**2
 ik = {}
 data = []
 col = []
