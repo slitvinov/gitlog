@@ -1,33 +1,65 @@
 declare(nu, constant)$
-declare([xb, yb, xf, yf, tb, tm, xp, yp], linear)$
-
+assumescalar: false $
 B(expr)::=buildq([expr],
-    block([ij: args(X), o: op(X), i, j], i: ij[1], j: ij[2],
-      expr))$
-pre(X):=not atom(X) and (op(X) = 'f or op(X) = 'p or op(X) = u[0] or op(X) = u[1])$
+  block([o:op(X),t:first(X),i:second(X),j:third(X),d:rest(args(X),3)],local(fun),
+    fun([args]):=arraymake(o,append(args,d)), expr))$
+pre(X):=not atom(X) and (op(X) = 'f or op(X) = 'p or op(X) = 'u)$
+gvars(e):=sublist(listofvars(e),
+      lambda([e],
+             not atom(e) and ((op(e) = 'u or op(e) = 'p) and first(e) # -1)))$
+dump0(v, c):= block([o, i, j, d],
+  c: apply1(factor(c), prev0, prev1),
+  o: op(v),
+  i: second(v),
+  j: third(v),
+  d: rest(args(v), 3),
+  printf(true, "add(~s, ~a, ~{~a~^, ~})~%", o, c, append(['i + i, 'j + j], d)))$
+
+dump(X, Coef):= block([va, re], 
+  X: ratexpand(Coef * X),
+  va: gvars(X),
+  for v in va do dump0(v, coeff(X, v)),
+  for v in va do X: coeff(X, v, 0),
+  if X # 0 then printf(true, "rhs[-1] += ~a~%", apply1(X, prev0, prev1)))$
+  
+
 matchdeclare(X, pre)$
 
-prev(o):= if o = u[0] then u0[0] else u0[1];
+/* time, i, j, dim */
+tellsimpafter(tb . X, B(fun(t, i, j) - fun(t - 1, i, j)))$
+tellsimpafter(xb0 . X, B(fun(t, i, j) - fun(t, i - 1, j)))$
+tellsimpafter(xb1 . X, B(fun(t, i, j) - fun(t, i, j - 1)))$
+tellsimpafter(xf0 . X, B(fun(t, i + 1, j) - fun(t, i, j)))$
+tellsimpafter(xf1 . X, B(fun(t, i, j + 1) - fun(t, i, j)))$
+tellsimpafter(tm . X, B(fun(t - 1, i, j)))$
+tellsimpafter(xp0 . X, B(fun(t, i + 1, j)))$
+tellsimpafter(xp1 . X, B(fun(t, i, j + 1)))$
 
-tellsimpafter(tb(X), B(o[i, j] - prev(o)[i, j]))$
-tellsimpafter(xb(X), B(o[i, j] - o[i - 1, j]))$
-tellsimpafter(yb(X), B(o[i, j] - o[i, j - 1]))$
-tellsimpafter(xf(X), B(o[i + 1, j] - o[i, j]))$
-tellsimpafter(yf(X), B(o[i, j + 1] - o[i, j]))$
-tellsimpafter(tm(X), B(prev(o)[i, j]))$
-tellsimpafter(xp(X), B(o[i + 1, j]));
-tellsimpafter(yp(X), B(o[i, j + 1]));
-ff: fx[0, 0]$
-ux: u[0][0, 0]$
-uy: u[1][0, 0]$
-pp: p[0, 0]$
-uu: ux;
+matchdeclare(I, lambda([e], e = 0 or e = 1))$
+tellsimpafter(xb(I), concat('xb, I))$
+tellsimpafter(xf(I), concat('xf, I))$
+tellsimpafter(xp(I), concat('xp, I))$
 
-A: tb(uu);
-B: xf(xb(uu)) + yf(yb(uu));
-C: tm(xp(ux)) * xf(uu) + tm(yp(uy)) * yf(uu);
-D: tm(ux) * xf(uu) + tm(uy) * yf(uu);
-E: xb(pp); /* TODO: */
+matchdeclare([I, J, D], true)$
+defrule(prev0, u[-1, I, J, D], funmake(u0, ['i + I, 'j + J, D]))$
+defrule(prev1, f[0, 0, D], funmake(f, ['i, 'j, D]))$
 
-vars: listofvars(C);
-for v in vars do print(v, "=", coeff(expand(C), v));
+sumk(e)::=sum(e, k, 0, 1)$
+
+pp: p[0, 0, 0]$
+uu[0]: u[0, 0, 0, 0]$
+uu[1]: u[0, 0, 0, 1]$
+
+i: 1$
+ui: u[0, 0, 0, i]$
+A: tb . ui$
+B: sumk(xf(k) . xb(k) . ui), expand$
+C: sumk(tm . xp(k) . uu[k] * xf(k) . ui), ratexpand$
+D: sumk(tm . uu[k] * xb(k) . ui)$
+E: xb(i) . pp, ratexpand$
+F: f[0, 0, i]$
+G: sumk(xf(k) . uu[k])$
+
+/* dump(A - mu * B + 1/2 * C + 1/2 * D + E + F, 1); */
+
+
