@@ -20,7 +20,7 @@ dump(X, Coef):= block([va, re],
   va: sort(gvars(X), lambda([x, y], ordergreatp(op(x), op(y)))),
   for v in va do dump0(v, coeff(X, v)),
   for v in va do X: coeff(X, v, 0),
-  if X # 0 then printf(true, "rhs[-1] += ~a~%", apply1(X, prev0, prev1)))$
+  if X # 0 then printf(true, "rhs[-1] += ~a~%", -apply1(X, prev0, prev1)))$
 
 
 matchdeclare(X, pre)$

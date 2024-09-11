@@ -20,7 +20,7 @@ FIELDS = {
 
 def add(f, c, i, j, d=None):
     val = boundary(i, j)
-    if boundary(i, j) is None:
+    if val is None:
         if (i, j) not in ik:
             ik[i, j] = len(ik)
         data.append(c)
