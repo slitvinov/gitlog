@@ -15,7 +15,10 @@ def boundaryp(i):
 def f(i, d):
     return 1 / h
 
+
 FIELDS = {("u", 0): 0, ("p", None): 1}
+
+
 def add(f, c, i, d=None):
     if not boundaryp(i):
         if i not in ik:
@@ -49,8 +52,8 @@ for i in range(-1, m + 1):
         rhs[-1] += f(i, 0)
     if not boundaryp(i) or not boundaryp(i + 1):
         rhs.append(0)
-        add("u", -1/h, i, 0)
-        add("u", 1/h, i + 1, 0)
+        add("u", -1 / h, i, 0)
+        add("u", 1 / h, i + 1, 0)
 rhs.append(10)
 add("p", 1, 1)
 
