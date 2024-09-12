@@ -65,7 +65,7 @@ for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
 for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
     if not boundaryp(i, j):
         rhs.append(0)
-        add(0, "p", i, j)
+        add(1, "p", i, j)
         break
 # sol = scipy.sparse.linalg.spsolve(A, rhs)
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
