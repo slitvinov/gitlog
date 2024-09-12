@@ -37,33 +37,33 @@ row = []
 rhs = []
 h = 1 / m
 for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
-        if not boundaryp(i - 1, j) and not boundaryp(i, j):
-            rhs.append(0)
-            add("u", 1, i - 1, j, 0)
-            add("u", 1, i, j - 1, 0)
-            add("u", -4, i, j, 0)
-            add("u", 1, i, j + 1, 0)
-            add("u", 1, i + 1, j, 0)
-            add("p", -1, i - 1, j)
-            add("p", 1, i, j)
-            rhs[-1] += f(i, j, 0)
-        if not boundaryp(i, j - 1) and not boundaryp(i, j):
-            rhs.append(0)
-            add("u", 1, i - 1, j, 1)
-            add("u", 1, i, j - 1, 1)
-            add("u", -4, i, j, 1)
-            add("u", 1, i, j + 1, 1)
-            add("u", 1, i + 1, j, 1)
-            add("p", -1, i, j - 1)
-            add("p", 1, i, j)
-            rhs[-1] += f(i, j, 1)
-        if not boundaryp(i, j) or not boundaryp(i, j + 1) or not boundaryp(
-                i + 1, j):
-            rhs.append(0)
-            add("u", -1, i, j, 0)
-            add("u", -1, i, j, 1)
-            add("u", 1, i, j + 1, 1)
-            add("u", 1, i + 1, j, 0)
+    if not boundaryp(i - 1, j) and not boundaryp(i, j):
+        rhs.append(0)
+        add("u", 1, i - 1, j, 0)
+        add("u", 1, i, j - 1, 0)
+        add("u", -4, i, j, 0)
+        add("u", 1, i, j + 1, 0)
+        add("u", 1, i + 1, j, 0)
+        add("p", -1, i - 1, j)
+        add("p", 1, i, j)
+        rhs[-1] += f(i, j, 0)
+    if not boundaryp(i, j - 1) and not boundaryp(i, j):
+        rhs.append(0)
+        add("u", 1, i - 1, j, 1)
+        add("u", 1, i, j - 1, 1)
+        add("u", -4, i, j, 1)
+        add("u", 1, i, j + 1, 1)
+        add("u", 1, i + 1, j, 1)
+        add("p", -1, i, j - 1)
+        add("p", 1, i, j)
+        rhs[-1] += f(i, j, 1)
+    if not boundaryp(i, j) or not boundaryp(i, j + 1) or not boundaryp(
+            i + 1, j):
+        rhs.append(0)
+        add("u", -1, i, j, 0)
+        add("u", -1, i, j, 1)
+        add("u", 1, i, j + 1, 1)
+        add("u", 1, i + 1, j, 0)
 for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
     if not boundaryp(i, j):
         rhs.append(0)
