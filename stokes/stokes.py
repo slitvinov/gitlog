@@ -6,7 +6,9 @@ import itertools
 
 
 def boundaryp(i, j):
-    return i <= 0 or j <= 0 or i >= m or j >= m or i >= j
+    cond0 = i <= 0 or j <= 0 or i >= m or j >= m
+    cond1 = (8 * i - 2 * m)**2 + (8 * j - 6 * m)**2 < m**2
+    return cond0 or cond1
 
 
 def fu(i, j):
@@ -19,7 +21,7 @@ def fv(i, j):
 
 def add(c, *idx):
     f, *ij = idx
-    if f == "sigma" or not boundaryp(*ij):
+    if f == "sigma" or f == "p" or not boundaryp(*ij):
         if idx not in ik:
             ik[idx] = len(ik)
         data.append(c)
@@ -32,7 +34,7 @@ def add(c, *idx):
 
 
 plt.rcParams["image.cmap"] = "jet"
-m = 150
+m = 40
 ik = {}
 data = []
 col = []
@@ -41,7 +43,7 @@ rhs = []
 h = 1 / m
 scales = {"u": h, "v": h, "p": 1, "f": 1 / h}
 for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
-    if not boundaryp(i - 1, j) and not boundaryp(i, j):
+    if not boundaryp(i, j):
         rhs.append(0)
         add(1, "u", i - 1, j)
         add(1, "u", i, j - 1)
@@ -51,7 +53,6 @@ for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
         add(-1, "p", i - 1, j)
         add(1, "p", i, j)
         rhs[-1] += fu(i, j)
-    if not boundaryp(i, j - 1) and not boundaryp(i, j):
         rhs.append(0)
         add(1, "v", i - 1, j)
         add(1, "v", i, j - 1)
@@ -88,7 +89,8 @@ for f in fields.values():
 for (name, *ij), k in ik.items():
     if name in names:
         i, j = ij
-        fields[name][i, j] = sol[k]
+        if not boundaryp(i, j):
+            fields[name][i, j] = sol[k]
 for name, f in fields.items():
     plt.imshow(f.T * scales[name], origin="lower")
     plt.colorbar()
