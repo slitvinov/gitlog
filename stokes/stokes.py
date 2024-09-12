@@ -82,8 +82,8 @@ for f in fields.values():
     f.fill(None)
 for (f, i, j), k in ik.items():
     fields[f][i, j] = sol[k]
-for name, scale in scales.items():
-    plt.imshow(fields[name].T * scale, origin="lower")
+for name, f in fields.items():
+    plt.imshow(f.T * scales[name], origin="lower")
     plt.colorbar()
     plt.axis("off")
     plt.tight_layout()
