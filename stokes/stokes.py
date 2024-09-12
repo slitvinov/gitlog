@@ -34,7 +34,7 @@ def add(c, *idx):
 
 
 plt.rcParams["image.cmap"] = "jet"
-m = 40
+m = 50
 ik = {}
 data = []
 col = []
