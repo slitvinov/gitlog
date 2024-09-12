@@ -13,7 +13,7 @@ def f(i, j, d):
     return 0
 
 
-def add(f, c, i, j, d=None):
+def add(c, f, i, j, d=None):
     if not boundaryp(i, j):
         if (f, i, j) not in ik:
             ik[f, i, j] = len(ik)
@@ -37,35 +37,35 @@ h = 1 / m
 for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
     if not boundaryp(i - 1, j) and not boundaryp(i, j):
         rhs.append(0)
-        add("u", 1, i - 1, j)
-        add("u", 1, i, j - 1)
-        add("u", -4, i, j)
-        add("u", 1, i, j + 1)
-        add("u", 1, i + 1, j)
-        add("p", -1, i - 1, j)
-        add("p", 1, i, j)
+        add(1, "u", i - 1, j)
+        add(1, "u", i, j - 1)
+        add(-4, "u", i, j)
+        add(1, "u", i, j + 1)
+        add(1, "u", i + 1, j)
+        add(-1, "p", i - 1, j)
+        add(1, "p", i, j)
         rhs[-1] += f(i, j, 0)
     if not boundaryp(i, j - 1) and not boundaryp(i, j):
         rhs.append(0)
-        add("v", 1, i - 1, j)
-        add("v", 1, i, j - 1)
-        add("v", -4, i, j)
-        add("v", 1, i, j + 1)
-        add("v", 1, i + 1, j)
-        add("p", -1, i, j - 1)
-        add("p", 1, i, j)
+        add(1, "v", i - 1, j)
+        add(1, "v", i, j - 1)
+        add(-4, "v", i, j)
+        add(1, "v", i, j + 1)
+        add(1, "v", i + 1, j)
+        add(-1, "p", i, j - 1)
+        add(1, "p", i, j)
         rhs[-1] += f(i, j, 1)
     if not boundaryp(i, j) or not boundaryp(i, j + 1) or not boundaryp(
             i + 1, j):
         rhs.append(0)
-        add("u", -1, i, j)
-        add("v", -1, i, j)
-        add("v", 1, i, j + 1)
-        add("u", 1, i + 1, j)
+        add(-1, "u", i, j)
+        add(-1, "v", i, j)
+        add(1, "v", i, j + 1)
+        add(1, "u", i + 1, j)
 for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
     if not boundaryp(i, j):
         rhs.append(0)
-        add("p", 0, i, j)
+        add(0, "p", i, j)
         break
 # sol = scipy.sparse.linalg.spsolve(A, rhs)
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
