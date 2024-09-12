@@ -13,7 +13,7 @@ def f(i, j, d):
     return 0
 
 
-def add(c, f, i, j, d=None):
+def add(c, f, i, j):
     if not boundaryp(i, j):
         if (f, i, j) not in ik:
             ik[f, i, j] = len(ik)
