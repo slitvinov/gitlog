@@ -38,7 +38,7 @@ data = []
 col = []
 row = []
 rhs = []
-for i in range(-1, m + 1):
+for i in range(m):
     if not boundaryp(i):
         rhs.append(0)
         add(1, "u", i - 1)
@@ -52,7 +52,7 @@ for i in range(-1, m + 1):
         add(-h, "sigma")
         add(-1, "u", i)
         add(1, "u", i + 1)
-for i in range(-1, m + 1):
+for i in range(m):
     if not boundaryp(i):
         rhs.append(0)
         add(1, "p", i)
