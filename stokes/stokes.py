@@ -4,11 +4,6 @@ import numpy as np
 import scipy
 import itertools
 
-
-def u(i, j):
-    return 0
-
-
 def boundaryp(i, j):
     return i <= 0 or j <= 0 or i >= m or j >= m
 
@@ -41,8 +36,7 @@ col = []
 row = []
 rhs = []
 h = 1 / m
-for i in range(-1, m + 1):
-    for j in range(-1, m + 1):
+for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
         if not boundaryp(i - 1, j) and not boundaryp(i, j):
             rhs.append(0)
             add("u", 1, i - 1, j, 0)
