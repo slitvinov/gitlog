@@ -18,7 +18,7 @@ def f(i):
 
 def add(c, *idx):
     f, *i = idx
-    if not boundaryp(*i):
+    if f == "sigma" or not boundaryp(*i):
         if idx not in ik:
             ik[idx] = len(ik)
         data.append(c)
@@ -49,24 +49,24 @@ for i in range(-1, m + 1):
         rhs[-1] += f(i)
     if not boundaryp(i) or not boundaryp(i + 1):
         rhs.append(0)
+        add(-h, "sigma")
         add(-1, "u", i)
         add(1, "u", i + 1)
 rhs.append(0)
 add(1, "p", 1)
 
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
-sol, istop, itn, r1norm, r2norm, acond, *rest = scipy.sparse.linalg.lsqr(
-    A, rhs)
-print(f"{acond=} {r1norm=}")
+sol = scipy.sparse.linalg.spsolve(A, rhs)
 print("unknown:", len(ik))
 print("equations:", len(rhs))
-
+print("sigma:", sol[ik["sigma",]])
 names = "u", "p"
 fields = {name: np.empty(m + 1) for name in names}
 for f in fields.values():
     f.fill(None)
-for (name, i), k in ik.items():
+for (name, *ij), k in ik.items():
     if name in names:
+        i, = ij
         fields[name][i] = sol[k]
 for name, f in fields.items():
     plt.plot(f * scales[name])
