@@ -12,30 +12,27 @@ def boundaryp(i):
     return i <= 0 or i >= m
 
 
-def f(i, d):
-    return h
+def f(i):
+    return (i / m) / scales["f"]
 
 
-FIELDS = {("u", 0): 0, ("p", None): 1}
-
-
-def add(f, c, i, d=None):
-    if not boundaryp(i):
-        if i not in ik:
-            ik[i] = len(ik)
+def add(c, *idx):
+    f, *i = idx
+    if not boundaryp(*i):
+        if idx not in ik:
+            ik[idx] = len(ik)
         data.append(c)
-        col.append(nf * ik[i] + FIELDS[f, d])
+        col.append(ik[idx])
         row.append(len(rhs) - 1)
     else:
-        assert f == "u"
         val = 0
         rhs[-1] -= c * val
 
 
 plt.rcParams["image.cmap"] = "jet"
-nf = len(FIELDS)
 m = 20
 h = 1 / m
+scales = {"u": h, "p": 1, "f": 1 / h}
 ik = {}
 data = []
 col = []
@@ -44,33 +41,35 @@ rhs = []
 for i in range(-1, m + 1):
     if not boundaryp(i) and not boundaryp(i - 1):
         rhs.append(0)
-        add("u", 1, i - 1, 0)
-        add("u", -2, i, 0)
-        add("u", 1, i + 1, 0)
-        add("p", -1, i - 1)
-        add("p", 1, i)
-        rhs[-1] += f(i, 0)
+        add(1, "u", i - 1)
+        add(-2, "u", i)
+        add(1, "u", i + 1)
+        add(-1, "p", i - 1)
+        add(1, "p", i)
+        rhs[-1] += f(i)
     if not boundaryp(i) or not boundaryp(i + 1):
         rhs.append(0)
-        add("u", -1, i, 0)
-        add("u", 1, i + 1, 0)
+        add(-1, "u", i)
+        add(1, "u", i + 1)
 rhs.append(0)
-add("p", 1, 1)
+add(1, "p", 1)
 
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 sol, istop, itn, r1norm, r2norm, acond, *rest = scipy.sparse.linalg.lsqr(
     A, rhs)
 print(f"{acond=} {r1norm=}")
-print("unknown:", nf * len(ik))
+print("unknown:", len(ik))
 print("equations:", len(rhs))
 
-field = np.empty((nf, m + 1))
-field.fill(None)
-for i, k in ik.items():
-    l = nf * k
-    field[:, i] = sol[l:l + nf]
-for name, scale, f in zip(("u", "p"), (h, 1), field):
-    plt.plot(scale * f, '-o')
+names = "u", "p"
+fields = {name: np.empty(m + 1) for name in names}
+for f in fields.values():
+    f.fill(None)
+for (name, i), k in ik.items():
+    if name in names:
+        fields[name][i] = sol[k]
+for name, f in fields.items():
+    plt.plot(f * scales[name])
     plt.tight_layout()
     plt.savefig("1.%s.png" % name)
     plt.close()
