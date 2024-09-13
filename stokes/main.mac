@@ -13,7 +13,7 @@ dump0(v, c):= block([o, i, j, d],
   i: second(v),
   j: third(v),
   d: rest(args(v), 3),
-  printf(true, "add(~s, ~a, ~{~a~^, ~})~%", o, c, append(['i + i, 'j + j], d)))$
+  printf(true, "add(~a, ~s, ~{~a~^, ~})~%", c, o, append(['i + i, 'j + j], d)))$
 
 dump(X, Coef):= block([va, re],
   X: ratexpand(Coef * X),
@@ -60,7 +60,7 @@ for i in [0, 1] do (
   F: f[0, 0, i],
   printf(true, "rhs.append(0)~%"),
   /* dump(A - mu * B + C/2 + D/2 + E - F, 1) */
-  dump(B + E - F, 1)
+  dump(-B + E - F, 1)
   )$
 
 printf(true, "rhs.append(0)~%")$

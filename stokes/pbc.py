@@ -63,7 +63,7 @@ def add0(c, *idx):
 
 
 plt.rcParams["image.cmap"] = "jet"
-m = 300
+m = 20
 ik = {}
 data = []
 col = []
@@ -134,7 +134,7 @@ print("sigma:", sol[ik[
     "sigma",
 ]])
 names = "u", "v", "p"
-fields = {name: np.empty((m + 1, m + 1)) for name in names}
+fields = {name: np.empty((m, m)) for name in names}
 for f in fields.values():
     f.fill(None)
 for (name, *ij), k in ik.items():
