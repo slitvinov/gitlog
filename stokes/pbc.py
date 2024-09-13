@@ -114,5 +114,5 @@ for name, f in fields.items():
     plt.colorbar()
     plt.axis("off")
     plt.tight_layout()
-    plt.savefig("stokes.%s.png" % name)
+    plt.savefig("pbc.%s.png" % name)
     plt.close()
