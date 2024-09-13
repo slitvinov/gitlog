@@ -8,9 +8,11 @@ import itertools
 def boundaryp(i, j):
     return (i <= 0 or j <= 0 or i >= m or j >= m) and j != m // 2
 
+
 def domainp(i, j):
     cell = j == m // 2 and i == 0
     return (i <= 0 or j <= 0 or i >= m or j >= m) and not cell
+
 
 def fu(i, j):
     return 0
@@ -63,8 +65,7 @@ for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
         add(-1, "p", i, j - 1)
         add(1, "p", i, j)
         rhs[-1] += fv(i, j)
-    if not domainp(i, j) or not domainp(i, j + 1) or not domainp(
-            i + 1, j):
+    if not domainp(i, j) or not domainp(i, j + 1) or not domainp(i + 1, j):
         rhs.append(0)
         add(-h, "sigma")
         add(-1, "u", i, j)
@@ -77,7 +78,6 @@ for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
         add(1, "p", i, j)
         break
 
-rhs.append(0)
 for f in "u", "v":
     rhs.append(0)
     add(1, f, 0, m // 2)
@@ -85,7 +85,7 @@ for f in "u", "v":
     rhs.append(0)
     add(1, f, -1, m // 2)
     add(-1, f, m - 1, m // 2)
-    
+
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 print("unknown:", len(ik))
 print("equations:", len(rhs))
