@@ -14,11 +14,11 @@ def boundaryp(i, j):
 
 
 def domainp(i, j):
-    return not boundaryp(i, j)
+    return not boundaryp(i, j) and 0 <= i < m
 
 
 def realp(i, j):
-    return not boundaryp(i, j)
+    return not boundaryp(i, j) and 0 <= i < m
 
 
 def fu(i, j):
