@@ -78,20 +78,13 @@ for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
         break
 
 rhs.append(0)
-add(1, "u", 0, m // 2)
-add(-1, "u", m, m // 2)
-
-rhs.append(0)
-add(1, "v", 0, m // 2)
-add(-1, "v", m, m // 2)
-
-rhs.append(0)
-add(1, "u", -1, m // 2)
-add(-1, "u", m - 1, m // 2)
-
-rhs.append(0)
-add(1, "v", -1, m // 2)
-add(-1, "v", m - 1, m // 2)
+for f in "u", "v":
+    rhs.append(0)
+    add(1, f, 0, m // 2)
+    add(-1, f, m, m // 2)
+    rhs.append(0)
+    add(1, f, -1, m // 2)
+    add(-1, f, m - 1, m // 2)
     
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 print("unknown:", len(ik))
