@@ -6,12 +6,15 @@ import itertools
 
 
 def boundaryp(i, j):
-    return (i <= 0 or j <= 0 or i >= m or j >= m) and j != m // 2
+    return (i <= 0 or j <= 0 or i >= m or j >= m) and not (j in pbc)
 
 
 def domainp(i, j):
-    cell = j == m // 2 and i == 0
-    return (i <= 0 or j <= 0 or i >= m or j >= m) and not cell
+    return (0 < i < m and 0 < j < m) or j in pbc
+
+
+def realp(i, j):
+    return (0 < i < m and 0 < j < m) or (j in pbc and i == 0)
 
 
 def fu(i, j):
@@ -37,16 +40,17 @@ def add(c, *idx):
 
 
 plt.rcParams["image.cmap"] = "jet"
-m = 4
+m = 50
 ik = {}
 data = []
 col = []
 row = []
 rhs = []
 h = 1 / m
+pbc = [m - 2]
 scales = {"u": h, "v": h, "p": 1, "f": 1 / h}
 for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
-    if not domainp(i, j):
+    if domainp(i, j):
         rhs.append(0)
         add(1, "u", i - 1, j)
         add(1, "u", i, j - 1)
@@ -65,7 +69,7 @@ for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
         add(-1, "p", i, j - 1)
         add(1, "p", i, j)
         rhs[-1] += fv(i, j)
-    if not domainp(i, j) or not domainp(i, j + 1) or not domainp(i + 1, j):
+    if realp(i, j) or realp(i, j + 1) or realp(i + 1, j):
         rhs.append(0)
         add(-h, "sigma")
         add(-1, "u", i, j)
@@ -78,13 +82,12 @@ for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
         add(1, "p", i, j)
         break
 
-for f in "u", "v":
-    rhs.append(0)
-    add(1, f, 0, m // 2)
-    add(-1, f, m, m // 2)
-    rhs.append(0)
-    add(1, f, -1, m // 2)
-    add(-1, f, m - 1, m // 2)
+for j in pbc:
+    for f in "u", "v":
+        for i in -2, -1, 0, 1:
+            rhs.append(0)
+            add(1, f, i, j)
+            add(-1, f, i + m, j)
 
 A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
 print("unknown:", len(ik))
@@ -94,7 +97,7 @@ print("sigma:", sol[ik[
     "sigma",
 ]])
 names = "u", "v", "p"
-fields = {name: np.empty((m + 1, m + 1)) for name in names}
+fields = {name: np.empty((m + 2, m + 2)) for name in names}
 for f in fields.values():
     f.fill(None)
 for (name, *ij), k in ik.items():
