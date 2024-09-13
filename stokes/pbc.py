@@ -63,35 +63,35 @@ def add0(c, *idx):
 
 
 plt.rcParams["image.cmap"] = "jet"
-m = 50
+m = 300
 ik = {}
 data = []
 col = []
 row = []
 rhs = []
 h = 1 / m
-pbc = list(range(m))
+pbc = set(range(m))
 scales = {"u": h, "v": h, "p": 1, "f": 1 / h}
-for i, j in itertools.product(range(m + 1), range(m + 1)):
+for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
     if domainp(i, j):
         rhs.append(0)
-        add(1, "u", i - 1, j)
-        add(1, "u", i, j - 1)
-        add(-4, "u", i, j)
-        add(1, "u", i, j + 1)
-        add(1, "u", i + 1, j)
+        add(-1, "u", i - 1, j)
+        add(-1, "u", i, j - 1)
+        add(4, "u", i, j)
+        add(-1, "u", i, j + 1)
+        add(-1, "u", i + 1, j)
         add(-1, "p", i - 1, j)
         add(1, "p", i, j)
-        rhs[-1] -= fu(i, j)
+        rhs[-1] += fu(i, j)
         rhs.append(0)
-        add(1, "v", i - 1, j)
-        add(1, "v", i, j - 1)
-        add(-4, "v", i, j)
-        add(1, "v", i, j + 1)
-        add(1, "v", i + 1, j)
+        add(-1, "v", i - 1, j)
+        add(-1, "v", i, j - 1)
+        add(4, "v", i, j)
+        add(-1, "v", i, j + 1)
+        add(-1, "v", i + 1, j)
         add(-1, "p", i, j - 1)
         add(1, "p", i, j)
-        rhs[-1] -= fv(i, j)
+        rhs[-1] += fv(i, j)
     if realp(i, j) or realp(i, j + 1) or realp(i + 1, j):
         rhs.append(0)
         add(-h, "sigma")
@@ -99,7 +99,7 @@ for i, j in itertools.product(range(m + 1), range(m + 1)):
         add(-1, "v", i, j)
         add(1, "v", i, j + 1)
         add(1, "u", i + 1, j)
-for i, j in itertools.product(range(m + 1), range(m + 1)):
+for i, j in itertools.product(range(-1, m + 1), range(-1, m + 1)):
     if not boundaryp(i, j):
         rhs.append(0)
         add(1, "p", i, j)
@@ -128,8 +128,8 @@ print("dup", cnt)
 A = scipy.sparse.csr_matrix((data0, (row0, col0)), dtype=float)
 print("unknown:", len(ik))
 print("equations:", len(rhs))
-# sol = scipy.sparse.linalg.spsolve(A, rhs0)
-sol, *rest = scipy.sparse.linalg.lsqr(A, rhs0)
+sol = scipy.sparse.linalg.spsolve(A, rhs0)
+# sol, *rest = scipy.sparse.linalg.lsqr(A, rhs0)
 print("sigma:", sol[ik[
     "sigma",
 ]])
