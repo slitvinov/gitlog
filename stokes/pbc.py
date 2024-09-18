@@ -124,7 +124,7 @@ for ro, rh in zip(D.values(), rhs):
     else:
         cnt += 1
     seen.add(ro)
-print("dup", cnt)
+print("duplicates:", cnt)
 A = scipy.sparse.csr_matrix((data0, (row0, col0)), dtype=float)
 print("unknown:", len(ik))
 print("equations:", len(rhs))
