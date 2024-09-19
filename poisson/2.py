@@ -4,7 +4,6 @@ import numpy as np
 import functools
 
 
-@functools.cache
 def boundary(i, j):
     boundary0 = i == m - 1 or j == 0 or j == m - 1 or i <= j
     boundary1 = (8 * i - 6 * m)**2 + (8 * j - 2 * m)**2 < m**2
