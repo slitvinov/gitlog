@@ -22,7 +22,7 @@ def add(i, j, c):
         rhs[-1] -= c * val
 
 
-plt.rcParams["image.cmap"] = "jet"
+# plt.rcParams["image.cmap"] = "jet"
 m = 40
 ik = {}
 data = []
