@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 
 random.seed(12345)
 N = 100
-X, Y, Z = N, 1, 0 # ignorants, spreaders, and stiflers
+X, Y, Z = N, 1, 0  # ignorants, spreaders, and stiflers
 tend = 0.2
 
-Trace = [ ]
+Trace = []
 t = 0
 while True:
     Trace.append((t, X, Y, Z))
@@ -25,9 +25,8 @@ while True:
         Z += 1
     tau = random.expovariate(sum(a))
     t += tau
-    
+
 t, X, Y, Z = zip(*Trace)
 plt.axis((None, tend, None, None))
 plt.step(t, X, t, Y, where='post')
 plt.show()
-
