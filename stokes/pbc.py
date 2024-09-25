@@ -125,7 +125,7 @@ for ro, rh in zip(D.values(), rhs):
         cnt += 1
     seen.add(ro)
 print("duplicates:", cnt)
-A = scipy.sparse.csr_matrix((data0, (row0, col0)), dtype=float)
+A = scipy.sparse.csr_array((data0, (row0, col0)), dtype=float)
 print("unknown:", len(ik))
 print("equations:", len(rhs))
 sol = scipy.sparse.linalg.spsolve(A, rhs0)
