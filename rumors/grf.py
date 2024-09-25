@@ -1,14 +1,14 @@
 import random
 import matplotlib.pyplot as plt
 
-random.seed(6)
-tend = 100
+random.seed(3)
 G, R, F = 1000, 1000, 100  # Grass, Rabbit, Fox
 alpha = 0.001
 beta = 0.002
 gamma = 1
 delta = 1
 epsilon = 0.5
+tend = 100
 Trace = []
 t = 0
 while True:
@@ -29,8 +29,7 @@ while True:
         G += 1
     elif i == 4:
         G -= 1
-    tau = random.expovariate(sum(a))
-    t += tau
+    t += random.expovariate(sum(a))
 t, G, R, F = zip(*Trace)
 plt.axis((None, tend, None, None))
 plt.step(t, G, 'green', t, R, 'blue', t, F, 'red', where='post')

@@ -4,8 +4,7 @@ import matplotlib.pyplot as plt
 random.seed(12345)
 N = 100
 X, Y, Z = N, 1, 0  # ignorants, spreaders, and stiflers
-tend = 0.2
-
+tend = 0.15
 Trace = []
 t = 0
 while True:
@@ -28,5 +27,5 @@ while True:
 
 t, X, Y, Z = zip(*Trace)
 plt.axis((None, tend, None, None))
-plt.step(t, X, t, Y, where='post')
+plt.step(t, X, t, Y, t, Z, where='post')
 plt.show()
