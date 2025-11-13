@@ -71,7 +71,7 @@ probability of a data point.
 
 P.S. [code](vae.mac)
 
-<img src="vai.png" align="center">
+<img src="vae.png" align="center">
 
 # References
 

@@ -1,5 +1,5 @@
 set terminal pngcairo size 2000, 600 font "Helvetica,30" linewidth 10 dashed
-set output "vai.png"
+set output "vae.png"
 
 p = 1.561892578827941
 q1(z) =  p * z - (p-2)/2;
