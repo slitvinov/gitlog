@@ -11,7 +11,7 @@ Q2(z) =  0.3727369040519853*z*z-1.574667302616667*z+1.663088016624338
 unset grid
 set key bottom center
 set border 3
-set xlabel "bias"
+set xlabel "coin bias (the latent variable)"
 set ylabel "probability density"
 set xtics axis nomirror
 set ytics 0.5 axis nomirror

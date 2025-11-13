@@ -33,8 +33,7 @@ Q1(z) = T*H/i(T*H)
 Q2(z) = T*T/i(T*T)
 </pre>
 
-VAE seeks to approximate these conditionals.  I use linear
-approximations:
+Here, the problem is solved exactly, while the VAE seeks an approximation. Assume linear forms:
 
 <pre>
 q1(z) = p*z - (p - 2)/2
@@ -70,6 +69,10 @@ probability of a data point.
 - `q1(z)` and `q2(z)` are the decoder.
 - `p` is the recognition model parameter.
 
-P.S.S. [code](vae.mac)
+P.S. [code](vae.mac)
 
 <img src="vai.png" align="center">
+
+# References
+
+Kingma, D. P., & Welling, M. (2013). Auto-encoding variational bayes. arXiv preprint arXiv:1312.6114.
