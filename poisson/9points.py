@@ -1,6 +1,8 @@
-import scipy
-import numpy as np
 import math
+
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy
 
 
 def u(i, j):
@@ -22,7 +24,7 @@ def boundary(i, j):
 
 def add(i, j, c):
     val = boundary(i, j)
-    if boundary(i, j) is None:
+    if val is None:
         if (i, j) not in ik:
             ik[i, j] = len(ik)
         data.append(c)

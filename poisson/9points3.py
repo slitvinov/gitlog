@@ -1,8 +1,8 @@
 import itertools
-from math import cos, sin, pi, sqrt
-import numpy as np
-import scipy
+from math import cos, pi, sin, sqrt
 import statistics
+
+import scipy
 
 
 def u(i, j):

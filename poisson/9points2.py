@@ -1,9 +1,9 @@
 import itertools
-from math import cos, sin, pi, sqrt
+from math import cos, pi, sin, sqrt
+import statistics
+
 import numpy as np
 import scipy
-import matplotlib.pyplot as plt
-import statistics
 
 
 def u(i, j):
@@ -79,18 +79,9 @@ for scheme, m in itertools.product((five, nine),
                 scheme()
     A = scipy.sparse.csr_matrix((data, (row, col)), dtype=float)
     sol = scipy.sparse.linalg.spsolve(A, rhs)
-    err = 0
-    ue = np.empty((m, m))
-    ue.fill(None)
     err = []
     for s, t in zip(sol, ik):
         e = (s - u(*t))**2
         err.append(e)
         ue[t] = s
     print(f"{scheme.__name__} {m:8} {sqrt(statistics.mean(err)):10.2e}")
-    continue
-    plt.imshow(ue.T, origin="lower")
-    plt.axis("off")
-    plt.tight_layout()
-    plt.show()
-    plt.close()

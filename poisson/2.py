@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
-import scipy
 import numpy as np
-import functools
+import scipy
 
 
 def boundary(i, j):
@@ -22,7 +21,6 @@ def add(i, j, c):
         rhs[-1] -= c * val
 
 
-# plt.rcParams["image.cmap"] = "jet"
 m = 40
 ik = {}
 data = []

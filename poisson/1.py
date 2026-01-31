@@ -10,7 +10,7 @@ def boundary(i):
 
 def add(i, c):
     if not boundary(i):
-        if not i in ik:
+        if i not in ik:
             ik[i] = len(ik)
         col.append(ik[i])
         row.append(len(rhs) - 1)

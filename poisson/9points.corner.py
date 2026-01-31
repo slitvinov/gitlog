@@ -1,4 +1,5 @@
 import math
+
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy
@@ -89,7 +90,7 @@ plt.contour(error.T,
 plt.axis("equal")
 plt.axis("off")
 plt.tight_layout()
-plt.savefig(f"9points.error.png")
+plt.savefig("9points.error.png")
 plt.close()
 
 plt.imshow(field.T, origin="lower")
