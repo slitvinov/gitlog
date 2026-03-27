@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>V-JEPA Feature Explorer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #1a1a1a; color: #eee; font-family: monospace; display: flex; flex-direction: column; align-items: center; height: 100vh; }
+#status { padding: 8px; font-size: 14px; text-align: center; }
+#wrap { position: relative; }
+canvas { cursor: crosshair; display: block; }
+#help { position: fixed; bottom: 10px; font-size: 12px; color: #888; text-align: center; }
+#loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; }
+</style>
+</head>
+<body>
+<div id="status"></div>
+<div id="wrap"><canvas id="c"></canvas></div>
+<div id="help">click: label | left/right: frames | up/down: datasets | space: cycle k | c: clear</div>
+<div id="loading">Loading...</div>
+<script>
+const SCALE = 1;
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+const statusEl = document.getElementById("status");
+const loadingEl = document.getElementById("loading");
+
+let datasets = [];
+let di = 0, t = 0, k = 5;
+let pos = {};
+
+const K_VALUES = [5, 3, 1];
+let kIdx = 0;
+
+async function loadDatasets() {
+    const resp = await fetch("datasets.json");
+    const names = await resp.json();
+    for (const name of names) {
+        const metaResp = await fetch(`out/${name}/meta.json`);
+        const meta = await metaResp.json();
+        const binResp = await fetch(`out/${name}/features_norm.f16.bin`);
+        const buf = await binResp.arrayBuffer();
+        const f16 = new DataView(buf);
+        const n = buf.byteLength / 2;
+        const flat = new Float32Array(n);
+        for (let i = 0; i < n; i++) {
+            flat[i] = dataViewGetFloat16(f16, i * 2);
+        }
+        datasets.push({
+            name, meta, flat,
+            T_p: meta.T_p, H_p: meta.H_p, W_p: meta.W_p, D: meta.D,
+            numFrames: meta.num_frames,
+            images: new Array(meta.num_frames).fill(null),
+        });
+        for (let f = 0; f < meta.num_frames; f++) {
+            const img = new Image();
+            img.src = `out/${name}/${String(f).padStart(3, "0")}_orig.png`;
+            datasets[datasets.length - 1].images[f] = img;
+        }
+    }
+    loadingEl.style.display = "none";
+    draw();
+}
+
+function dataViewGetFloat16(dv, offset) {
+    const bits = dv.getUint16(offset, true);
+    const sign = (bits >> 15) & 1;
+    const exp = (bits >> 10) & 0x1f;
+    const frac = bits & 0x3ff;
+    if (exp === 0) {
+        return (sign ? -1 : 1) * Math.pow(2, -14) * (frac / 1024);
+    } else if (exp === 31) {
+        return frac ? NaN : (sign ? -Infinity : Infinity);
+    }
+    return (sign ? -1 : 1) * Math.pow(2, exp - 15) * (1 + frac / 1024);
+}
+
+function getToken(ds, tp, h, w) {
+    const idx = ((tp * ds.H_p + h) * ds.W_p + w) * ds.D;
+    return ds.flat.subarray(idx, idx + ds.D);
+}
+
+function dot(a, b, D) {
+    let s = 0;
+    for (let i = 0; i < D; i++) s += a[i] * b[i];
+    return s;
+}
+
+let trainData = null;
+
+function buildTrainData() {
+    const allLabels = [];
+    for (const [dIdx, posList] of Object.entries(pos)) {
+        const lds = datasets[dIdx];
+        const posSet = new Set(posList.map(p => `${p[0]},${p[1]},${p[2]}`));
+        const labeledFrames = new Set(posList.map(p => p[0]));
+        for (const tf of labeledFrames) {
+            for (let h = 0; h < lds.H_p; h++) {
+                for (let w = 0; w < lds.W_p; w++) {
+                    allLabels.push({
+                        vec: getToken(lds, tf, h, w),
+                        y: posSet.has(`${tf},${h},${w}`) ? 1 : 0,
+                        D: lds.D,
+                    });
+                }
+            }
+        }
+    }
+    const nPos = allLabels.filter(l => l.y === 1).length;
+    if (nPos === 0 || nPos === allLabels.length) { trainData = null; return; }
+    trainData = allLabels;
+}
+
+function knnPredictFrame(ds, tp) {
+    if (!trainData) return null;
+    const n = ds.H_p * ds.W_p;
+    const result = new Float32Array(n);
+    for (let h = 0; h < ds.H_p; h++) {
+        for (let w = 0; w < ds.W_p; w++) {
+            const vec = getToken(ds, tp, h, w);
+            const dists = trainData.map(l => ({
+                sim: dot(vec, l.vec, ds.D),
+                y: l.y
+            }));
+            dists.sort((a, b) => b.sim - a.sim);
+            let votes = 0;
+            const kk = Math.min(k, dists.length);
+            for (let i = 0; i < kk; i++) votes += dists[i].y;
+            result[h * ds.W_p + w] = votes / kk;
+        }
+    }
+    return result;
+}
+
+function draw() {
+    const ds = datasets[di];
+    if (!ds) return;
+    const S = ds.meta.crop_size * SCALE;
+    canvas.width = S;
+    canvas.height = S;
+    const img = ds.images[t];
+    if (img && img.complete) {
+        ctx.drawImage(img, 0, 0, S, S);
+    } else if (img) {
+        img.onload = () => draw();
+        return;
+    }
+
+    if (trainData) {
+        const tp = Math.floor(t / ds.meta.tubelet);
+        const frameProb = knnPredictFrame(ds, tp);
+        if (frameProb) {
+            const ps = SCALE * ds.meta.crop_size / ds.H_p;
+            for (let h = 0; h < ds.H_p; h++) {
+                for (let w = 0; w < ds.W_p; w++) {
+                    const p = frameProb[h * ds.W_p + w];
+                    if (p > 0.01) {
+                        ctx.fillStyle = `rgba(255, 0, 0, ${p})`;
+                        ctx.fillRect(w * ps, h * ps, ps, ps);
+                    }
+                }
+            }
+        }
+    }
+
+    const ps = SCALE * ds.meta.crop_size / ds.H_p;
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i <= ds.H_p; i++) {
+        ctx.beginPath(); ctx.moveTo(0, i * ps); ctx.lineTo(S, i * ps); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(i * ps, 0); ctx.lineTo(i * ps, S); ctx.stroke();
+    }
+
+    const tp = Math.floor(t / ds.meta.tubelet);
+    for (const [st, sh, sw] of (pos[di] || [])) {
+        if (st === tp) {
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(sw * ps + 1, sh * ps + 1, ps - 2, ps - 2);
+        }
+    }
+
+    const nLabels = Object.values(pos).reduce((s, v) => s + v.length, 0);
+    statusEl.textContent = `[${ds.name}] frame ${t}/${ds.numFrames - 1} token ${tp}/${ds.T_p - 1} labels:${nLabels} [KNN(${k})]`;
+}
+
+canvas.addEventListener("click", (e) => {
+    const ds = datasets[di];
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+    const ps = ds.meta.crop_size * SCALE / ds.H_p;
+    const w = Math.min(Math.floor(x / ps), ds.W_p - 1);
+    const h = Math.min(Math.floor(y / ps), ds.H_p - 1);
+    const tp = Math.floor(t / ds.meta.tubelet);
+    if (!pos[di]) pos[di] = [];
+    pos[di].push([tp, h, w]);
+    buildTrainData();
+    draw();
+});
+
+document.addEventListener("keydown", (e) => {
+    const ds = datasets[di];
+    if (!ds) return;
+    if (e.key === "ArrowRight") {
+        t = Math.min(t + 1, ds.numFrames - 1);
+    } else if (e.key === "ArrowLeft") {
+        t = Math.max(t - 1, 0);
+    } else if (e.key === " ") {
+        e.preventDefault();
+        kIdx = (kIdx + 1) % K_VALUES.length;
+        k = K_VALUES[kIdx];
+        buildTrainData();
+    } else if (e.key === "c") {
+        pos = {};
+        trainData = null;
+    } else if (e.key === "ArrowDown") {
+        di = (di + 1) % datasets.length;
+        t = 0;
+    } else if (e.key === "ArrowUp") {
+        di = (di - 1 + datasets.length) % datasets.length;
+        t = 0;
+    } else {
+        return;
+    }
+    draw();
+});
+
+loadDatasets();
+</script>
+</body>
+</html>
