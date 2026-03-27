@@ -174,7 +174,7 @@ function draw() {
     const tp = Math.floor(t / ds.meta.tubelet);
     for (const [st, sh, sw] of (pos[di] || [])) {
         if (st === tp) {
-            ctx.strokeStyle = "red";
+            ctx.strokeStyle = "blue";
             ctx.lineWidth = 2;
             ctx.strokeRect(sw * ps + 1, sh * ps + 1, ps - 2, ps - 2);
         }
