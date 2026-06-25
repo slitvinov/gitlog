@@ -5,9 +5,9 @@ for a single query q; matrix Q is vectorizing that case across all
 queries at once. A query asks: of a sample that landed on the
 best-matching key, how likely is it to have come from each key?
 Normalized, that's the attention weights. Each key's score is `q ·
-k_i`, the projection of `k_i` onto `q` and it is a single number. From
-the query's view there is no high-dimensional space, just scores `s_i
-= q · k_i`.
+k_i`, the projection of `k_i` onto `q` and it is a single number of a
+line. From the query's view there is no high-dimensional space, just
+scores `s_i = q · k_i`.
 
 Slide the line so the max sits at `0`; every other key is a gap below it,
 `gap_i = max(s) - s_i`. Read each gap as a squared distance,
