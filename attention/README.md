@@ -1,13 +1,13 @@
 # Attention
 
 The celebrated attention formula softmax(Q^T K) is easy to interpret
-for a single query q; everything else is vectorizing that case across
-all queries at once. A query asks: of a sample that landed on the
+for a single query q; matrix Q is vectorizing that case across all
+queries at once. A query asks: of a sample that landed on the
 best-matching key, how likely is it to have come from each key?
-Normalized, that's the attention weights. Take one query `q`. Each
-key's score is `q · k_i`, the projection of `k_i` onto `q` and every
-key collapses to a single number on a line. From the query's view
-there is no high-dimensional space, just scores `s_i = q · k_i`.
+Normalized, that's the attention weights. Each key's score is `q ·
+k_i`, the projection of `k_i` onto `q` and it is a single number. From
+the query's view there is no high-dimensional space, just scores `s_i
+= q · k_i`.
 
 Slide the line so the max sits at `0`; every other key is a gap below it,
 `gap_i = max(s) - s_i`. Read each gap as a squared distance,
@@ -16,10 +16,9 @@ Slide the line so the max sits at `0`; every other key is a gap below it,
 dist_i = sqrt( max(s) - s_i )
 ```
 
-so the best key sits at `0` and the rest scatter out to the right.
-
-Now put a Gaussian at each site, width `w = |q|`. A sample landed at 0. Which site
-produced it? Read each Gaussian at the sample:
+so the best key sits at `0` and the rest scatter out to the right. Now
+put a Gaussian at each site, width `w = |q|`. Assume a sample landed at
+0. Which site produced it? Read each Gaussian at the sample:
 
 ```
 L_i ! exp( -dist_i² / w² )      P_i = L_i / Σ_j L_j
@@ -32,11 +31,11 @@ sample. It was most likely produced by the best-matching site, but
 could also have come from another.
 
 
-Here is an ilustration
+For example,
 
 ```python
 import numpy as np
-w = 3/2
+w = 3/2                              # |q|
 k = np.array([-10, -5, -2, -1, 1])   # scores q · k
 gap  = k.max() - k
 dist = np.sqrt(gap)
