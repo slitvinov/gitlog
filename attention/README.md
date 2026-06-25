@@ -37,12 +37,12 @@ Here is an ilustration
 ```python
 import numpy as np
 w = 3/2
-k = np.array([-10, -5, -2, -1, -1, 1])   # scores q·k
+k = np.array([-10, -5, -2, -1, 1])   # scores q · k
 gap  = k.max() - k
 dist = np.sqrt(gap)
 L    = np.exp(-dist**2 / w**2)
 P    = L / L.sum()
-print(*(f"{100*x:02.0f}" for x in P))     # 00 03 12 19 19 46
+print(*(f"{100*x:02.0f}" for x in P))     # 00 04 15 23 57
 ```
 
 And the whole thing, with the softmax written as the likelihood, and
