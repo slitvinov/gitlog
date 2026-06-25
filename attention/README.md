@@ -1,4 +1,4 @@
-# Attention is a likelihood
+# Attention
 
 
 A query asks: of a sample that landed on the best-matching key, how likely is it to
@@ -43,3 +43,4 @@ L    = np.exp(-dist**2 / w**2)
 P    = L / L.sum()
 print(*(f"{100*x:02.0f}" for x in P))     # 00 03 12 19 19 46
 ```
+
