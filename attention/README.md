@@ -21,7 +21,7 @@ put a Gaussian at each site, width `w = |q|`. Assume a sample landed at
 0. Which site produced it? Read each Gaussian at the sample:
 
 ```
-L_i ! exp( -dist_i² / w² )      P_i = L_i / Σ_j L_j
+L_i ~ exp( -dist_i² / w² )      P_i = L_i / Σ_j L_j
 ```
 
 ![Attention](attention.png)
