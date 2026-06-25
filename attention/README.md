@@ -1,6 +1,6 @@
 # Attention
 
-The celebrated attention formula `softmax(Q^T K)` is easy to interpret
+The celebrated attention formula `softmax(Q K^T)` is easy to interpret
 for a single query q; matrix Q is vectorizing that case across all
 queries at once. A query asks: of a sample that landed on the
 best-matching key, how likely is it to have come from each key?
@@ -17,7 +17,7 @@ dist_i = sqrt( max(s) - s_i )
 ```
 
 so the best key sits at `0` and the rest scatter out to the right. Now
-put a Gaussian at each site, width `w = |q|`. Assume a sample landed at
+put a Gaussian at each site, width `w = 1/√|q|`. Assume a sample landed at
 0. Which site produced it? Read each Gaussian at the sample:
 
 ```
