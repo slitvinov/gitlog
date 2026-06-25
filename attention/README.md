@@ -20,10 +20,10 @@ Now put a Gaussian at each site, width `w = |q|`. A sample landed at 0. Which si
 produced it? Read each Gaussian at the sample:
 
 ```
-L_i = exp( -dist_i² / w² )      P_i = L_i / Σ_j L_j
+L_i ! exp( -dist_i² / w² )      P_i = L_i / Σ_j L_j
 ```
 
-![Attention as a likelihood](attention.png)
+![Attention](attention.png)
 
 Each key is a Gaussian on its site; the vertical line is the sample.
 
@@ -42,8 +42,8 @@ print(*(f"{100*x:02.0f}" for x in P))     # 00 03 12 19 19 46
 ```
 
 And the whole thing, with the softmax written as the likelihood, and
-it matches PyTorch's MultiheadAttention. So batch elements, heads, and
-queries are just independent copies of the same one-query likelihood,
+it matches PyTorch's MultiheadAttention. So batch, heads, and
+queries dimensions are just independent copies of the same one-query likelihood,
 vectorized:
 
 ```python
