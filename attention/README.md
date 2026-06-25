@@ -1,6 +1,6 @@
 # Attention
 
-The celebrated attention formula softmax(Q^T K) is easy to interpret
+The celebrated attention formula `softmax(Q^T K)` is easy to interpret
 for a single query q; matrix Q is vectorizing that case across all
 queries at once. A query asks: of a sample that landed on the
 best-matching key, how likely is it to have come from each key?
