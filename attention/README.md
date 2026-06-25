@@ -25,7 +25,7 @@ L_i ! exp( -dist_i² / w² )      P_i = L_i / Σ_j L_j
 
 ![Attention](attention.png)
 
-Each key is a Gaussian on its site; the vertical line is the sample.
+Each key is a Gaussian centered on its site; the vertical line is the sample. It was most likely produced by the best-matching site, but could also have come from another.
 
 
 Here is an ilustration
