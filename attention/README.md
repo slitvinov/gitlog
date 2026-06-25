@@ -1,12 +1,11 @@
 # Attention
 
-
-A query asks: of a sample that landed on the best-matching key, how likely is it to
-have come from each key? Normalized, that's the attention weights.
-
-Take one query `q`. Each key's score is `q · k_i`, the projection of `k_i` onto `q` —
-every key collapses to a single number on a line. From the query's view there is no
-high-dimensional space, just scores `s_i = q · k_i`.
+A query asks: of a sample that landed on the best-matching key, how
+likely is it to have come from each key? Normalized, that's the
+attention weights. Take one query `q`. Each key's score is `q · k_i`,
+the projection of `k_i` onto `q` — every key collapses to a single
+number on a line. From the query's view there is no high-dimensional
+space, just scores `s_i = q · k_i`.
 
 Slide the line so the max sits at `0`; every other key is a gap below it,
 `gap_i = max(s) - s_i`. Read each gap as a squared distance,
@@ -46,7 +45,10 @@ P    = L / L.sum()
 print(*(f"{100*x:02.0f}" for x in P))     # 00 03 12 19 19 46
 ```
 
-And the whole thing, with the softmax written as the likelihood, and it matches PyTorch's MultiheadAttention. So batch elements, heads, and queries are just independent copies of the same one-query likelihood, vectorized:
+And the whole thing, with the softmax written as the likelihood, and
+it matches PyTorch's MultiheadAttention. So batch elements, heads, and
+queries are just independent copies of the same one-query likelihood,
+vectorized:
 
 ```python
 import torch.nn as nn
