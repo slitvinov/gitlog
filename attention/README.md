@@ -16,7 +16,7 @@ dist_i = sqrt( max(s) - s_i )
 
 so the best key sits at `0` and the rest scatter out to the right.
 
-Now put a Gaussian at each site, width `w`. A sample landed at 0. Which site
+Now put a Gaussian at each site, width `w = |q|`. A sample landed at 0. Which site
 produced it? Read each Gaussian at the sample:
 
 ```
@@ -25,11 +25,7 @@ L_i = exp( -dist_i² / w² )      P_i = L_i / Σ_j L_j
 
 ![Attention as a likelihood](attention.png)
 
-Each key is a Gaussian on its site; the vertical line is the sample. A site's weight
-is its Gaussian's height there — near keys win, far keys decay.
-
-The width is set by `|q|`. Long query, narrow Gaussians, attention snaps to the best
-key. Short query, wide Gaussians, attention spreads to a uniform average.
+Each key is a Gaussian on its site; the vertical line is the sample.
 
 
 Here is an ilustration
